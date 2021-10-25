@@ -51,6 +51,9 @@ public class EngineImpl implements Engine {
     @Override
     public void cutSelectedText() {
 	    // recuperation du text dans le buffer
+    	if(selection.getBeginIndex()== selection.getEndIndex()) {
+    		throw new IndexOutOfBoundsException("On ne peut pas couper si les index sont identiques");
+    	}
 		 String contentCut = stringBuffer.substring(selection.getBeginIndex(), selection.getEndIndex());
 		 
 		 //mettre à jour le presse papier
