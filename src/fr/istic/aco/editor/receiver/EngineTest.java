@@ -1,4 +1,4 @@
-package fr.istic.aco.editor;
+package fr.istic.aco.editor.receiver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
