@@ -1,4 +1,4 @@
-package fr.istic.aco.editor;
+package fr.istic.aco.editor.Receiver;
 
 public class EngineImpl implements Engine {
 	
@@ -51,11 +51,11 @@ public class EngineImpl implements Engine {
     @Override
     public void cutSelectedText() {
 	    // recuperation du text dans le buffer
-    	if(selection.getBeginIndex()== selection.getEndIndex()) {
-    		throw new IndexOutOfBoundsException("On ne peut pas couper si les index sont identiques");
-    	}
-		 String contentCut = stringBuffer.substring(selection.getBeginIndex(), selection.getEndIndex());
-		 
+//    	if(selection.getBeginIndex()== selection.getEndIndex()) {
+//    		throw new IndexOutOfBoundsException("On ne peut pas couper si les index sont identiques");
+//    	}
+    	String contentCut = stringBuffer.substring(getSelection().getBeginIndex(), getSelection().getEndIndex());
+	 
 		 //mettre à jour le presse papier
 		 setClipBoardContent(contentCut);
 	
@@ -73,7 +73,7 @@ public class EngineImpl implements Engine {
     public void copySelectedText() {
         
     	 // recuperation du text dans le buffer
-		 String contentCut = stringBuffer.substring(selection.getBeginIndex(), selection.getEndIndex());
+		 String contentCut = stringBuffer.substring(getSelection().getBeginIndex(), getSelection().getEndIndex());
 		 
 		 //mettre à jour le presse papier
 		 setClipBoardContent(contentCut);
@@ -98,7 +98,7 @@ public class EngineImpl implements Engine {
     @Override
     public void insert(String s) {
     	
-    	stringBuffer.replace(selection.getBeginIndex(), selection.getEndIndex(),s);
+    	stringBuffer.replace(getSelection().getBeginIndex(), getSelection().getEndIndex(),s);
     	//deplacer le endIndex pour le mettre au bon endroit
     	//selection.setEndIndex(selection.getBeginIndex()+ s.length());
     	
@@ -110,7 +110,7 @@ public class EngineImpl implements Engine {
     @Override
     public void delete() {
     	
-    	this.stringBuffer.delete(selection.getBeginIndex() ,selection.getEndIndex());
+    	this.stringBuffer.delete(getSelection().getBeginIndex() ,getSelection().getEndIndex());
     	//on doit mettre les index fin et debut de selection au meme endroit
 		 //selection.setEndIndex(selection.getBeginIndex());
     }
