@@ -11,6 +11,7 @@ public class CutCommand implements Command{
 		this.engine=engine;
 		
 	}
+	
 	@Override
 	public void Execute() {
 		engine.cutSelectedText();

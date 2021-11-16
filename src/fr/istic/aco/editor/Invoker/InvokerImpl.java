@@ -9,7 +9,18 @@ public class InvokerImpl implements Invoker{
 
 	private Map<String, Command> map= new HashMap<String, Command>();
 	private String element;
+	
+	private int indexB;
+	private int indexF;
+	
+	
 
+	public InvokerImpl() {
+		this.indexB=0;
+		this.indexF=0;
+		this.element="";
+		
+	}
 
 	@Override
 	public void addCommand(Command c, String id) {
@@ -40,5 +51,21 @@ public class InvokerImpl implements Invoker{
 		this.element = element;
 	}
 
+	
+	public int getIndexB() {
+		return indexB;
+	}
+
+	public void setIndexB(int indexB) {
+		this.indexB = indexB;
+	}
+
+	public int getIndexF() {
+		return indexF;
+	}
+
+	public void setIndexF(int indexF) {
+		this.indexF = indexF;
+	}
 
 }
