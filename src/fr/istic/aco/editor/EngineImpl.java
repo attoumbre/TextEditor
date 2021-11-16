@@ -100,7 +100,7 @@ public class EngineImpl implements Engine {
     	
     	stringBuffer.replace(selection.getBeginIndex(), selection.getEndIndex(),s);
     	//deplacer le endIndex pour le mettre au bon endroit
-    	//selection.setEndIndex(selection.getBeginIndex()+ s.length());
+    	selection.setEndIndex(selection.getBeginIndex()+ s.length());
     	
     }
 
@@ -112,7 +112,7 @@ public class EngineImpl implements Engine {
     	
     	this.stringBuffer.delete(selection.getBeginIndex() ,selection.getEndIndex());
     	//on doit mettre les index fin et debut de selection au meme endroit
-		 //selection.setEndIndex(selection.getBeginIndex());
+		 selection.setEndIndex(selection.getBeginIndex());
     }
     
     public void setClipBoardContent(String clipBord) {
