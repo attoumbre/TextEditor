@@ -1,11 +1,16 @@
 package fr.istic.aco.editor.Command;
 
-public class Replay implements Command{
+import fr.istic.aco.editor.Recorder.RecorderImpl;
 
+public class Replay implements Command{
+    private RecorderImpl recoder;
+    
+    public Replay (RecorderImpl recoder_) {
+    	this.recoder=recoder_;
+    }
 	@Override
 	public void Execute() {
-		// TODO Auto-generated method stub
-		
+		recoder.replay();
 	}
 
 }
