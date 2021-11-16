@@ -1,6 +1,8 @@
-package fr.istic.aco.editor.receiver;
 
-import static org.junit.jupiter.api.Assertions.*;
+package fr.istic.aco.editor.Receiver;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,10 +16,7 @@ class EngineTest {
         engine = new EngineImpl();
     }
 
-    private void todo() {
-        fail("Unimplemented test");
-    	 
-    }
+   
     @Test
     @DisplayName("Buffer must be empty after initialisation")
     void getSelection() {
@@ -58,20 +57,13 @@ class EngineTest {
 	 	System.out.println(en2.getBufferContents());
 	 	assertEquals("lala", en2.getBufferContents());
 	 	
-	 	EngineImpl en4= new EngineImpl();
-    	en4.insert("toto");
-    	Selection sel2 = en4.getSelection();
-    	sel2.setEndIndex(3);
-    	sel2.setBeginIndex(1);
-	 	en4.cutSelectedText();
-	 	assertEquals("to", en4.getBufferContents());
+	 	
 	 	
 	 	
     }
 
     @Test
     void getClipboardContents() {
-    	EngineImpl en = new EngineImpl();
     	assertEquals("",engine.getClipboardContents());
     	//vue apres copie
     	EngineImpl en3= new EngineImpl();
@@ -107,20 +99,35 @@ class EngineTest {
     void cutSelectedText() {
     	EngineImpl en4= new EngineImpl();
     	en4.insert("toto");
-    	Selection sel1 = en4.getSelection();
-    	sel1.setEndIndex(1);
-    	sel1.setBeginIndex(1);
-	 	assertThrows(IndexOutOfBoundsException.class, () -> en4.cutSelectedText());
+    	Selection sel2 = en4.getSelection();
+    	sel2.setEndIndex(3);
+    	sel2.setBeginIndex(1);
+	 	en4.cutSelectedText();
+	 	assertEquals("to", en4.getBufferContents());
 	 	
     }
 
     @Test
     void copySelectedText() {
-        todo();
+    	EngineImpl en3= new EngineImpl();
+    	en3.insert("toto");
+    	Selection sel = en3.getSelection();
+    	sel.setEndIndex(3);
+    	sel.setBeginIndex(1);
+	 	en3.copySelectedText();
+    	assertEquals("ot", en3.getClipboardContents());
     }
 
     @Test
     void pasteClipboard() {
-        todo();
+    	EngineImpl en1 = new EngineImpl();
+   	 	en1.insert("toto");
+   	 	Selection sel = en1.getSelection();
+   	 	sel.setEndIndex(4);
+   	 	sel.setBeginIndex(0);
+   	 	en1.copySelectedText();
+   	 	en1.delete();
+   	 	en1.pasteClipboard();
+   	 	assertEquals("toto", en1.getBufferContents());
     }
 }

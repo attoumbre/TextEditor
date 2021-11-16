@@ -1,6 +1,6 @@
-package fr.istic.aco.editor.command;
+package fr.istic.aco.editor.Command;
 
-import fr.istic.aco.editor.recorder.RecorderImpl;
+import fr.istic.aco.editor.Recorder.RecorderImpl;
 
 public class ReplayCommand implements Command {
 
