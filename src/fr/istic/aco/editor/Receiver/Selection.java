@@ -1,4 +1,3 @@
-
 package fr.istic.aco.editor.Receiver;
 
 /**

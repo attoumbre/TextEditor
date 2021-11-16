@@ -1,6 +1,4 @@
-
 package fr.istic.aco.editor.Receiver;
-
 
 public class EngineImpl implements Engine {
 	

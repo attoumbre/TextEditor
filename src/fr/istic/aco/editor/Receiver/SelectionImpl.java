@@ -1,7 +1,4 @@
-
 package fr.istic.aco.editor.Receiver;
-
-
 
 public class SelectionImpl implements Selection {
 	

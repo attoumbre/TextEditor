@@ -3,6 +3,7 @@ package fr.istic.aco.editor.Invoker;
 import fr.istic.aco.editor.Command.Command;
 
 public interface Invoker {
+
 	/**
 	 * Ajouter une commande a la liste des commandes
 	 *

@@ -1,6 +1,4 @@
-
 package fr.istic.aco.editor.Receiver;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

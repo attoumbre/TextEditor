@@ -15,6 +15,7 @@ public class InvokerImpl implements Invoker{
 		element="";
 	}
 
+
 	@Override
 	public void addCommand(Command c, String id) {
 		// l'id ou la commande ne peuvent pas etre null
@@ -30,6 +31,7 @@ public class InvokerImpl implements Invoker{
 	
 	@Override
 	public void playCommand(String s) {
+		
 		// recuperation de la commande*
 		if(s!=null) {
 			//recuperer la commande
@@ -40,7 +42,6 @@ public class InvokerImpl implements Invoker{
 		}else {
 			throw new NullPointerException("Commande ou identifiant de commande est nulle");
 		}
-		
 	}
 	
 	public String getElement() {
