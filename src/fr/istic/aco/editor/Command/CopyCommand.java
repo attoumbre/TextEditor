@@ -1,10 +1,14 @@
 package fr.istic.aco.editor.Command;
 
+
+
 import fr.istic.aco.editor.Receiver.Engine;
+import fr.istic.aco.editor.Recorder.Recorder;
 
 public class CopyCommand implements Command{
 	
 	private Engine engine;
+	private Recorder recorder;
 	
 	
 	public CopyCommand(Engine engine) {
@@ -17,6 +21,7 @@ public class CopyCommand implements Command{
 		//Command c = this.invoker.playCommand("copier");
 		//executer la commande via engine qui sait qui peut l'executer
 		engine.copySelectedText();
+		recorder.save(CopyCommand.this);
 		
 	}
 
