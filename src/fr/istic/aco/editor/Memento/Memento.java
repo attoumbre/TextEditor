@@ -4,14 +4,13 @@ public interface Memento {
 	/**
 	 *sauvegarde un texte
 	 *
-	 * @throws nullPointerException si le texe est null
+	 * @throws nullPointerException si l'objet est null
 	 */
-	public void setText(String A);
+	public void setValue(Object A);
 	
 	/**
 	 *retourne le texte sauvegarde
 	 *
-	 * 
 	 */
-	public String getText();
+	public Object getValue();
 }

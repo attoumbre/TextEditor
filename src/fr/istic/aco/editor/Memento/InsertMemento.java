@@ -2,16 +2,22 @@ package fr.istic.aco.editor.Memento;
 
 public class InsertMemento implements Memento {
 
+	 private Object saveState;
+	 
+	 
+	 public InsertMemento() {
+		 this.saveState="";
+	 }
+	 
 	@Override
-	public void setText(String A) {
-		// TODO Auto-generated method stub
+	public void setValue(Object A) {
+		this.saveState= A;
 
 	}
 
 	@Override
-	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+	public Object getValue() {
+		return  this.saveState;
 	}
 
 }

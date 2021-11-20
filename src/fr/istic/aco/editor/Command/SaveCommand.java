@@ -1,13 +1,12 @@
 package fr.istic.aco.editor.Command;
 
-import fr.istic.aco.editor.Recorder.RecorderImpl;
-
+import fr.istic.aco.editor.Recorder.Recorder;
 
 public class SaveCommand implements Command {
-	private RecorderImpl recoder;
+	private Recorder recoder;
 	private Command command;
 	
-	public SaveCommand(RecorderImpl recoder, Command command) {
+	public SaveCommand(Recorder recoder, Command command) {
 		this.recoder = recoder;
 		this.command = command;
 	}

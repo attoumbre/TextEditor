@@ -11,9 +11,13 @@ public class RecorderImpl implements Recorder {
 
 	@Override
 	public Command save(Command c) {
+		if (c == null) {throw new NullPointerException("Aucune commande n'a été passé en paramètre");}
+		else {
 		this.lastCommand=c;
 		return lastCommand;
+		}
 	}
+		
 
 	@Override
 	public void replay() {
