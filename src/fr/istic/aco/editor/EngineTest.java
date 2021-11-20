@@ -14,10 +14,13 @@ class EngineTest {
         engine = new EngineImpl();
     }
 
-    private void todo() {
+    /*commenté car tous les tests on été ecrits
+     * 
+     * private void todo() {
         fail("Unimplemented test");
     	 
-    }
+    }*/
+    
     @Test
     @DisplayName("Buffer must be empty after initialisation")
     void getSelection() {
