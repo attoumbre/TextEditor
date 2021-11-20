@@ -11,8 +11,9 @@ public class CopyCommand implements Command{
 	private Recorder recorder;
 	
 	
-	public CopyCommand(Engine engine) {
+	public CopyCommand(Engine engine, Recorder recorder) {
 		this.engine=engine;
+		this.recorder= recorder;
 		
 	}
 	@Override
