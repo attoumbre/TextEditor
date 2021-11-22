@@ -52,28 +52,32 @@ public class InvokerImpl implements Invoker{
 		}
 	}
 	
+	@Override
 	public String getElement() {
 		return element;
 	}
 
-
+	@Override
 	public void setElement(String element) {
 		this.element = element;
 	}
 
-	
+	@Override
 	public int getIndexB() {
 		return indexB;
 	}
-
+	
+	@Override
 	public void setIndexB(int indexB) {
 		this.indexB = indexB;
 	}
 
+	@Override
 	public int getIndexF() {
 		return indexF;
 	}
 
+	@Override
 	public void setIndexF(int indexF) {
 		this.indexF = indexF;
 	}

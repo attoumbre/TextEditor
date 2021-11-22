@@ -1,12 +1,15 @@
 package fr.istic.aco.editor.Command;
 
-import fr.istic.aco.editor.Recorder.RecorderImpl;
+import fr.istic.aco.editor.Memento.Memento;
+import fr.istic.aco.editor.Receiver.Engine;
+import fr.istic.aco.editor.Recorder.Recorder;
 
 public class ReplayCommand implements Command {
 
-	private RecorderImpl recoder;
+	private Recorder recoder;
 	
-	public ReplayCommand (RecorderImpl recorder) {
+	
+	public ReplayCommand (Recorder recorder) {
 		this.recoder = recorder;
 	}
 	
@@ -14,6 +17,18 @@ public class ReplayCommand implements Command {
 	public void Execute() {
 		this.recoder.replay();
 
+	}
+
+	@Override
+	public Memento getMemento() {
+		
+		return null;
+	}
+
+	@Override
+	public Engine getEngine() {
+		
+		return null;
 	}
 
 }
