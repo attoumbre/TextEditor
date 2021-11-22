@@ -51,9 +51,9 @@ public class EngineImpl implements Engine {
     @Override
     public void cutSelectedText() {
 	    // recuperation du text dans le buffer
-//    	if(selection.getBeginIndex()== selection.getEndIndex()) {
-//    		throw new IndexOutOfBoundsException("On ne peut pas couper si les index sont identiques");
-//    	}
+    	if(selection.getBeginIndex()== selection.getEndIndex()) {
+ 		throw new IndexOutOfBoundsException("On ne peut pas couper si les index sont identiques");
+   	}
     	String contentCut = stringBuffer.substring(getSelection().getBeginIndex(), getSelection().getEndIndex());
 	 
 		 //mettre à jour le presse papier
@@ -100,7 +100,7 @@ public class EngineImpl implements Engine {
     	
     	stringBuffer.replace(getSelection().getBeginIndex(), getSelection().getEndIndex(),s);
     	//deplacer le endIndex pour le mettre au bon endroit
-    	//selection.setEndIndex(selection.getBeginIndex()+ s.length());
+    	selection.setEndIndex(selection.getBeginIndex()+ s.length());
     	
     }
 
@@ -112,7 +112,7 @@ public class EngineImpl implements Engine {
     	
     	this.stringBuffer.delete(getSelection().getBeginIndex() ,getSelection().getEndIndex());
     	//on doit mettre les index fin et debut de selection au meme endroit
-		 //selection.setEndIndex(selection.getBeginIndex());
+		 selection.setEndIndex(selection.getBeginIndex());
     }
     
     public void setClipBoardContent(String clipBord) {

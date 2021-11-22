@@ -1,6 +1,6 @@
 package fr.istic.aco.editor.Receiver;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,13 @@ class EngineTest {
         engine = new EngineImpl();
     }
 
-   
+    /*commenté car tous les tests on été ecrits
+     * 
+     * private void todo() {
+        fail("Unimplemented test");
+    	 
+    }*/
+    
     @Test
     @DisplayName("Buffer must be empty after initialisation")
     void getSelection() {
@@ -26,106 +32,113 @@ class EngineTest {
 
     @Test
     void getBufferContents() {
-    	EngineImpl en = new EngineImpl();
-    	en.insert("laaa");
-   	 	assertEquals("laaa", en.getBufferContents());
-   	 	
-   	 	EngineImpl en1 = new EngineImpl();
-   	 	en1.insert("toto");
-   	 	Selection sel = en1.getSelection();
+    	engine.insert("laaa");
+    	System.out.println(engine.getBufferContents());
+   	 	assertEquals("laaa", engine.getBufferContents());
+   	    Selection sel = engine.getSelection();  
+   	    
+   	    System.out.println(sel.getEndIndex());
+   	    System.out.println(sel.getBeginIndex());
+   	 	engine.insert("toto");
+   	    System.out.println(engine.getBufferContents());
    		sel.setEndIndex(3);
    	 	System.out.println(sel.getEndIndex());
    	 	sel.setBeginIndex(0);
    	 	System.out.println(sel.getBeginIndex());
-   	 
-   	 	en1.delete();
-   	 	System.out.println(en1.getBufferContents());
-   	 	assertEquals("o", en1.getBufferContents());
+   	 	engine.delete();
+   	 	System.out.println(engine.getBufferContents());
+   	 	assertEquals("o", engine.getBufferContents());
    	 	
-   	 	EngineImpl en2 = new EngineImpl();
-	 	en2.insert("toto");
-	 	Selection sel1 = en2.getSelection();
-	 	sel1.setEndIndex(4);
-	 	System.out.println(sel1.getEndIndex());
-	 	sel1.setBeginIndex(0);
-	 	System.out.println(sel1.getBeginIndex());
+	 	engine.insert("toto");
+	 	System.out.println(engine.getBufferContents());
+	 	//Selection sel1 = engine.getSelection();
+	 	sel.setEndIndex(4);
+	 	System.out.println(sel.getEndIndex());
+	 	sel.setBeginIndex(0);
+	 	System.out.println(sel.getBeginIndex());
+	 	engine.delete();
+	 	System.out.println(sel.getEndIndex());
+	 	System.out.println(sel.getBeginIndex());
+	 	System.out.println(engine.getBufferContents());
+	 	engine.insert("lala");
+	 	System.out.println(engine.getBufferContents());
+	 	assertEquals("lalao", engine.getBufferContents());
 	 	
-	 	en2.delete();
-	 	en2.insert("lala");
-	 	System.out.println(en2.getBufferContents());
-	 	assertEquals("lala", en2.getBufferContents());
-	 	
-	 	
+	 	sel.setBeginIndex(0);
+	 	sel.setEndIndex(0);
+    	engine.insert("toto");
+    	sel.setEndIndex(3);
+    	sel.setBeginIndex(1);
+	 	engine.cutSelectedText();
+	 	System.out.println(engine.getBufferContents());
+	 	assertEquals("tolalao", engine.getBufferContents());
 	 	
 	 	
     }
 
     @Test
     void getClipboardContents() {
+    	System.out.println(engine.getBufferContents());
     	assertEquals("",engine.getClipboardContents());
+    	
+    	
     	//vue apres copie
-    	EngineImpl en3= new EngineImpl();
-    	en3.insert("toto");
-    	Selection sel = en3.getSelection();
+    	engine.insert("toto");
+    	Selection sel = engine.getSelection();
     	sel.setEndIndex(3);
     	sel.setBeginIndex(1);
-	 	en3.copySelectedText();
-    	assertEquals("ot", en3.getClipboardContents());
+	 	engine.copySelectedText();
+	 	System.out.println(engine.getClipboardContents());
+    	assertEquals("ot", engine.getClipboardContents());
+    	
     	//vue apres cut-paste
-    	EngineImpl en4= new EngineImpl();
-    	en4.insert("toto");
-    	Selection sel1 = en4.getSelection();
-    	sel1.setEndIndex(3);
-    	sel1.setBeginIndex(1);
-	 	en4.cutSelectedText();
-	 	en4.pasteClipboard();
-    	assertEquals("ot", en4.getClipboardContents());
+	 	engine.cutSelectedText();
+	 	engine.pasteClipboard();
+	 	System.out.println(engine.getClipboardContents());
+    	assertEquals("ot", engine.getClipboardContents());
+ 
     	//vue apres double copie
-    	EngineImpl en5= new EngineImpl();
-    	en5.insert("toto");
-    	Selection sel2 = en5.getSelection();
-    	sel2.setEndIndex(3);
-    	sel2.setBeginIndex(1);
-	 	en5.copySelectedText();
-	 	sel2.setEndIndex(4);
-    	sel2.setBeginIndex(2);
-	 	en5.copySelectedText();
-	 	assertEquals("to", en5.getClipboardContents());
+    	sel.setEndIndex(3);
+    	sel.setBeginIndex(1);
+	 	engine.copySelectedText();
+	 	sel.setEndIndex(4);
+    	sel.setBeginIndex(2);
+	 	engine.copySelectedText();
+	 	assertEquals("to", engine.getClipboardContents());
     }
 
     @Test
     void cutSelectedText() {
-    	EngineImpl en4= new EngineImpl();
-    	en4.insert("toto");
-    	Selection sel2 = en4.getSelection();
-    	sel2.setEndIndex(3);
-    	sel2.setBeginIndex(1);
-	 	en4.cutSelectedText();
-	 	assertEquals("to", en4.getBufferContents());
+    	engine.insert("toto");
+    	Selection sel = engine.getSelection();
+    	sel.setEndIndex(1);
+    	sel.setBeginIndex(1);
+	 	assertThrows(IndexOutOfBoundsException.class, () -> engine.cutSelectedText());
 	 	
     }
 
     @Test
     void copySelectedText() {
-    	EngineImpl en3= new EngineImpl();
-    	en3.insert("toto");
-    	Selection sel = en3.getSelection();
-    	sel.setEndIndex(3);
-    	sel.setBeginIndex(1);
-	 	en3.copySelectedText();
-    	assertEquals("ot", en3.getClipboardContents());
+    	engine.insert("toto");
+    	Selection sel = engine.getSelection();
+    	sel.setEndIndex(4);
+    	sel.setBeginIndex(2);
+	 	engine.copySelectedText();
+	 	assertEquals("to", engine.getClipboardContents());
+	 	assertEquals("toto", engine.getBufferContents());
     }
 
     @Test
     void pasteClipboard() {
-    	EngineImpl en1 = new EngineImpl();
-   	 	en1.insert("toto");
-   	 	Selection sel = en1.getSelection();
-   	 	sel.setEndIndex(4);
-   	 	sel.setBeginIndex(0);
-   	 	en1.copySelectedText();
-   	 	en1.delete();
-   	 	en1.pasteClipboard();
-   	 	assertEquals("toto", en1.getBufferContents());
+    	engine.insert("totolala");
+    	Selection sel = engine.getSelection();
+    	sel.setEndIndex(4);
+    	sel.setBeginIndex(0);
+    	engine.cutSelectedText();
+    	sel.setEndIndex(4);
+    	sel.setBeginIndex(4);
+    	engine.pasteClipboard();
+    	assertEquals("toto", engine.getClipboardContents());
+	 	assertEquals("lalatoto", engine.getBufferContents());
     }
 }

@@ -1,5 +1,6 @@
 package fr.istic.aco.editor.Memento;
 
+
 public class SelectionMemento implements Memento{
 
 	private int indexB;
@@ -37,6 +38,7 @@ public class SelectionMemento implements Memento{
 	@Override
 	public void setIndexF(int indexF) {
 		this.indexF = indexF;
+
 	}
 
 }

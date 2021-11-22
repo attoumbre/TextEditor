@@ -54,12 +54,18 @@ public class InvokerImpl implements Invoker{
 	
 	@Override
 	public String getElement() {
+		
 		return element;
 	}
 
 	@Override
 	public void setElement(String element) {
-		this.element = element;
+		if(element != null) {
+			this.element = element;
+		}else {
+			throw new NullPointerException("aucun element fourni ");
+		}
+		
 	}
 
 	@Override

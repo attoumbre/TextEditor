@@ -2,6 +2,7 @@ package fr.istic.aco.editor.Memento;
 
 public interface Memento {
 
+
 	
 	/**
 	 * Modifier le text du memento
@@ -36,4 +37,5 @@ public interface Memento {
 	 * @param indexF
 	 */
 	void setIndexF(int indexF);
+
 }

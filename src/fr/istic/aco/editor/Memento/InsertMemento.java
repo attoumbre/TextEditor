@@ -40,8 +40,4 @@ public class InsertMemento implements Memento{
 		
 	}
 
-	
-	
-	
-
 }
