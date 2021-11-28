@@ -23,7 +23,7 @@ public class SelectionCommand implements Command{
 	}
 	
 	@Override
-	public void Execute() {
+	public void execute() {
 		
 		
 		Selection selection=engine.getSelection();

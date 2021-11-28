@@ -17,7 +17,7 @@ public class DeleteCommand implements Command{
 	}
 
 	@Override
-	public void Execute() {
+	public void execute() {
 		engine.delete();
 		
 	}

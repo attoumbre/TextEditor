@@ -16,7 +16,7 @@ public class CopyCommand implements Command{
 	}
 	
 	@Override
-	public void Execute() {
+	public void execute() {
 		//executer la commande via engine qui sait qui peut l'executer
 		engine.copySelectedText();
 		

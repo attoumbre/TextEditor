@@ -8,7 +8,7 @@ public interface Command {
 	/**
 	 * execution de la concreteCommand
 	 */
-	void Execute();
+	void execute();
 	
 	/**
 	 * retourner le memento 

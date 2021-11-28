@@ -15,7 +15,7 @@ public class InvokerImpl implements Invoker{
 	
 	
 
-	InvokerImpl(){
+	public InvokerImpl(){
 		this.indexB=0;
 		this.indexF=0;
 		map= new HashMap<String, Command>();
@@ -31,7 +31,7 @@ public class InvokerImpl implements Invoker{
 			//ajouter au map
 			map.put(id, c);
 		}else {
-			throw new NullPointerException("Commande ou identifiant de commande est nulle");
+			throw new IllegalArgumentException("Commande ou identifiant de commande est nulle");
 		}
 		
 	}
@@ -46,9 +46,9 @@ public class InvokerImpl implements Invoker{
 			Command c= map.get(s);
 			
 			//lancer la commande
-			c.Execute();
+			c.execute();
 		}else {
-			throw new NullPointerException("Commande ou identifiant de commande est nulle");
+			throw new IllegalArgumentException("Commande ou identifiant de commande est nulle");
 		}
 	}
 	

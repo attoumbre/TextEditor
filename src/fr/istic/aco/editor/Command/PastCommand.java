@@ -14,7 +14,7 @@ public class PastCommand implements Command{
 	}
 	
 	@Override
-	public void Execute() {
+	public void execute() {
 		engine.pasteClipboard();
 		
 	}

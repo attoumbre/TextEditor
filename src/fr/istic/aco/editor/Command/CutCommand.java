@@ -17,7 +17,7 @@ public class CutCommand implements Command{
 	}
 	
 	@Override
-	public void Execute() {
+	public void execute() {
 		engine.cutSelectedText();
 	}
 

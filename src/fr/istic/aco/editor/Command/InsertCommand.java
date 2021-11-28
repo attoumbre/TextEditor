@@ -25,7 +25,7 @@ public class InsertCommand implements Command{
 	 * inserer un string
 	 */
 	@Override
-	public void Execute() {
+	public void execute() {
 		String element = invoker.getElement();
 		engine.insert(element);
 		//memento met a jour le text

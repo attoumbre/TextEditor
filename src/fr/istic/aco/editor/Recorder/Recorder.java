@@ -7,9 +7,9 @@ public interface Recorder {
 	/**
 	 * methode permettant de save la derniere commande jouée
 	 *
-	 *  @throws nullPointerException si la command c est nulle 
+	 *  @throws IllegalArgumentException si la command c est nulle 
 	 */
-	public Command save(Command c);
+	public void save(Command c);
 	
 	/**
 	 * methode permettant rejouer la derniere commande

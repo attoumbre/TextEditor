@@ -1,27 +1,49 @@
 package fr.istic.aco.editor.Recorder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.istic.aco.editor.Command.Command;
-
 public class RecorderImpl implements Recorder {
-	private Command lastCommand;
+	private List<Command> listCommand;
 
-	public Command getLastCommand() {
-		return lastCommand;
+	public RecorderImpl() {
+		this.listCommand = new ArrayList<Command>();
 	}
+	
+	
 
 	@Override
-	public Command save(Command c) {
-		if (c == null) {throw new NullPointerException("Aucune commande n'a été passé en paramètre");}
-		else {
-		this.lastCommand=c;
-		return lastCommand;
-		}
+	public void save(Command c) {
+		
+		//Lors de l'insertion on ajoute le text à inserer dans le memento "c" contient donc un memento 
+		listCommand.add(c);
+		
+		
 	}
 		
 
 	@Override
 	public void replay() {
-		this.lastCommand.Execute();
+		//replay que la derniere commande 
+		Command command= listCommand.get(listCommand.size()-1);
+		//trouver la condition pour jouer la derniere commande (insert ou selection)
+		
+		if(command.getMemento().getText()==null) {
+			//int bindex=0;
+			//int eindex=0;
+			command.getEngine().getSelection().setEndIndex(command.getMemento().getIndexF());
+			command.getEngine().getSelection().setBeginIndex(command.getMemento().getIndexB());
+			//bindex=command.getEngine().getSelection().getBeginIndex();
+			//eindex=command.getEngine().getSelection().getEndIndex();
+
+		}else {
+			//String text="";
+			command.getEngine().insert(command.getMemento().getText());
+			//text= command.getEngine().getBufferContents();
+		}
+		
+		
 		
 	}
 
