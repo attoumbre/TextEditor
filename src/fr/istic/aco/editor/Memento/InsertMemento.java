@@ -3,11 +3,15 @@ package fr.istic.aco.editor.Memento;
 public class InsertMemento implements Memento{
 	
 	private String text;
-
+	
+	public InsertMemento() {
+		this.text="";
+		
+	}
 	@Override
 	public void SetText(String text) {
 		this.text = text; 
-		
+	
 	}
 
 	@Override

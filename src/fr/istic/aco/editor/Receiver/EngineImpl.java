@@ -100,7 +100,9 @@ public class EngineImpl implements Engine {
     	
     	stringBuffer.replace(getSelection().getBeginIndex(), getSelection().getEndIndex(),s);
     	//deplacer le endIndex pour le mettre au bon endroit
-    	selection.setEndIndex(selection.getBeginIndex()+ s.length());
+    	int index=selection.getBeginIndex() + s.length();
+    	selection.setEndIndex(index);
+    	//selection.setBeginIndex(index);
     	
     }
 

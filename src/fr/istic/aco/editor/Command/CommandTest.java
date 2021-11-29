@@ -104,13 +104,13 @@ public class CommandTest {
 	        invoker.setIndexF(5);
 	        invoker.setIndexB(0);
 	        Command selection = new SelectionCommand(engine, recorder,invoker);
-	        
+	        System.out.println(engine.getBufferContents());
 	        selection.execute();
-
+	        
 	        Command copy = new CopyCommand(engine);
 	        copy.execute();
 
-	        assertEquals(engine.getClipboardContents(), "Salut");
+	        assertEquals("Salut",engine.getClipboardContents());
 	    }
 
 	    @Test
@@ -120,6 +120,29 @@ public class CommandTest {
 	        Command insert = new InsertCommand(engine, recorder , invoker);
 	        insert.execute();
 	        assertEquals(engine.getBufferContents(), mot);
+
+	    }
+	    
+	    @Test
+	    void replayCommand() {
+	    	String mot = "Bienvenu Replay";
+	    	engine.insert(mot);
+	    	//premiere commande
+	    	 invoker.setIndexF(5);
+		     invoker.setIndexB(0);
+		     Command selection = new SelectionCommand(engine, recorder,invoker);
+		     //save dans son execution
+		     selection.execute();
+		     System.out.println(engine.getBufferContents());
+		     //deuxieme commande 
+	    	invoker.setElement(mot);
+		    Command insert = new InsertCommand(engine, recorder , invoker);
+		    //save dans son execution
+		    insert.execute();
+		    //replay la derniere
+		    recorder.replay();
+		    System.out.println(engine.getBufferContents());
+		    assertEquals( mot+ mot+"enu Replay", engine.getBufferContents());
 
 	    }
 

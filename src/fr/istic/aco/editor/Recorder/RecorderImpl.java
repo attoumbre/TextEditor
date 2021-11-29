@@ -32,6 +32,7 @@ public class RecorderImpl implements Recorder {
 		if(command.getMemento().getText()==null) {
 			//int bindex=0;
 			//int eindex=0;
+			
 			command.getEngine().getSelection().setEndIndex(command.getMemento().getIndexF());
 			command.getEngine().getSelection().setBeginIndex(command.getMemento().getIndexB());
 			//bindex=command.getEngine().getSelection().getBeginIndex();
@@ -39,6 +40,7 @@ public class RecorderImpl implements Recorder {
 
 		}else {
 			//String text="";
+			command.getEngine().getSelection().setBeginIndex(command.getEngine().getSelection().getEndIndex());
 			command.getEngine().insert(command.getMemento().getText());
 			//text= command.getEngine().getBufferContents();
 		}
