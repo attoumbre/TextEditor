@@ -49,4 +49,20 @@ public class RecorderImpl implements Recorder {
 		
 	}
 
+
+
+	@Override
+	public Boolean Start() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Boolean Stop() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

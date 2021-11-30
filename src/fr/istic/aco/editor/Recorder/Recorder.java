@@ -16,4 +16,16 @@ public interface Recorder {
 	 * 
 	 */
 	public void replay();
+	
+	/**
+	 * true si enregistrement
+	 * @return
+	 */
+	public Boolean Start();
+	
+	/**
+	 * true si fin enregistrement
+	 * @return
+	 */
+	public Boolean Stop();
 }
