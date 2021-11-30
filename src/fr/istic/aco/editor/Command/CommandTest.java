@@ -42,8 +42,8 @@ public class CommandTest {
 	        String mot = "Bienvenu copy";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
-	        selection.setEndIndex(3);
 	        selection.setBeginIndex(1);
+	        selection.setEndIndex(3);
 	        
 	        Command copy = new CopyCommand(engine);
 	        copy.execute();
@@ -57,8 +57,8 @@ public class CommandTest {
 	        String mot = "Bienvenu cut";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
-	        selection.setEndIndex(4);
 	        selection.setBeginIndex(0);
+	        selection.setEndIndex(4);
 	        
 	        Command cut = new CutCommand(engine);
 	        cut.execute();
@@ -72,9 +72,8 @@ public class CommandTest {
 	        String mot = "Bienvenu delete";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
-	        
-	        selection.setEndIndex(4);
 	        selection.setBeginIndex(1);
+	        selection.setEndIndex(4);
 	        
 	        Command delete = new DeleteCommand(engine);
 	        delete.execute();
@@ -86,8 +85,8 @@ public class CommandTest {
 	        String mot = "Bienvenu paste";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
-	        selection.setEndIndex(9);
 	        selection.setBeginIndex(8);
+	        selection.setEndIndex(9);
 	        
 	        engine.copySelectedText();
 	        engine.pasteClipboard();
@@ -99,10 +98,11 @@ public class CommandTest {
 	    @Test
 	    void selectionCommand() {
 	        String content = "Salut tout le monde";
-	        engine.insert(content);
-	        
-	        invoker.setIndexF(5);
+	        invoker.setElement(content);
 	        invoker.setIndexB(0);
+	        invoker.setIndexF(5);
+	        Command insert = new InsertCommand(engine, recorder , invoker);
+	        insert.execute();
 	        Command selection = new SelectionCommand(engine, recorder,invoker);
 	        System.out.println(engine.getBufferContents());
 	        selection.execute();
@@ -128,8 +128,9 @@ public class CommandTest {
 	    	String mot = "Bienvenu Replay";
 	    	engine.insert(mot);
 	    	//premiere commande
+	    	invoker.setIndexB(0);
 	    	 invoker.setIndexF(5);
-		     invoker.setIndexB(0);
+		     
 		     Command selection = new SelectionCommand(engine, recorder,invoker);
 		     //save dans son execution
 		     selection.execute();
@@ -143,6 +144,33 @@ public class CommandTest {
 		    recorder.replay();
 		    System.out.println(engine.getBufferContents());
 		    assertEquals( mot+ mot+"enu Replay", engine.getBufferContents());
+
+	    }
+	    
+	    @Test
+	    void replayCommand1() {
+	    	String mot = "Bienvenu Replay";
+	    	
+		     System.out.println(engine.getBufferContents());
+		     //deuxieme commande 
+	    	invoker.setElement(mot);
+		    Command insert = new InsertCommand(engine, recorder , invoker);
+		    //save dans son execution
+		    insert.execute();
+		    
+		    engine.insert(mot);
+	    	//premiere commande
+		    invoker.setIndexB(0);
+	    	 invoker.setIndexF(5);
+		     
+		     Command selection = new SelectionCommand(engine, recorder,invoker);
+		     //save dans son execution
+		     selection.execute();
+		    //replay la derniere
+		    recorder.replay();
+		    
+		    assertEquals(0, engine.getSelection().getBeginIndex());
+		    assertEquals(5, engine.getSelection().getEndIndex());
 
 	    }
 

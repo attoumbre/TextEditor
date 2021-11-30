@@ -40,7 +40,7 @@ public class RecorderImpl implements Recorder {
 
 		}else {
 			//String text="";
-			command.getEngine().getSelection().setBeginIndex(command.getEngine().getSelection().getEndIndex());
+			//command.getEngine().getSelection().setBeginIndex(command.getEngine().getSelection().getEndIndex());
 			command.getEngine().insert(command.getMemento().getText());
 			//text= command.getEngine().getBufferContents();
 		}

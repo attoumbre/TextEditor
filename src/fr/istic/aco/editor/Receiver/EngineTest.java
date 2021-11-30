@@ -37,41 +37,35 @@ class EngineTest {
    	 	assertEquals("laaa", engine.getBufferContents());
    	    Selection sel = engine.getSelection();  
    	    
-   	    System.out.println(sel.getEndIndex());
-   	    System.out.println(sel.getBeginIndex());
    	 	engine.insert("toto");
-   	    System.out.println(engine.getBufferContents());
-   		sel.setEndIndex(3);
-   	 	System.out.println(sel.getEndIndex());
-   	 	sel.setBeginIndex(0);
-   	 	System.out.println(sel.getBeginIndex());
+   	  
+   		sel.setBeginIndex(0);
+   	 
+   	 	sel.setEndIndex(3);
+   	 	
    	 	engine.delete();
-   	 	System.out.println(engine.getBufferContents());
-   	 	assertEquals("o", engine.getBufferContents());
+   	 	assertEquals("atoto", engine.getBufferContents());
    	 	
 	 	engine.insert("toto");
-	 	System.out.println(engine.getBufferContents());
-	 	//Selection sel1 = engine.getSelection();
-	 	sel.setEndIndex(4);
-	 	System.out.println(sel.getEndIndex());
+	 	
 	 	sel.setBeginIndex(0);
-	 	System.out.println(sel.getBeginIndex());
+	 	
+	 	sel.setEndIndex(4);
+	 	
 	 	engine.delete();
-	 	System.out.println(sel.getEndIndex());
-	 	System.out.println(sel.getBeginIndex());
-	 	System.out.println(engine.getBufferContents());
 	 	engine.insert("lala");
-	 	System.out.println(engine.getBufferContents());
-	 	assertEquals("lalao", engine.getBufferContents());
+	 	
+	 	assertEquals("lalaatoto", engine.getBufferContents());
 	 	
 	 	sel.setBeginIndex(0);
 	 	sel.setEndIndex(0);
     	engine.insert("toto");
-    	sel.setEndIndex(3);
     	sel.setBeginIndex(1);
+    	sel.setEndIndex(3);
+    	
 	 	engine.cutSelectedText();
 	 	System.out.println(engine.getBufferContents());
-	 	assertEquals("tolalao", engine.getBufferContents());
+	 	assertEquals("tolalaatoto", engine.getBufferContents());
 	 	
 	 	
     }
@@ -85,8 +79,9 @@ class EngineTest {
     	//vue apres copie
     	engine.insert("toto");
     	Selection sel = engine.getSelection();
-    	sel.setEndIndex(3);
     	sel.setBeginIndex(1);
+    	sel.setEndIndex(3);
+    	
 	 	engine.copySelectedText();
 	 	System.out.println(engine.getClipboardContents());
     	assertEquals("ot", engine.getClipboardContents());
@@ -98,11 +93,13 @@ class EngineTest {
     	assertEquals("ot", engine.getClipboardContents());
  
     	//vue apres double copie
-    	sel.setEndIndex(3);
     	sel.setBeginIndex(1);
+    	sel.setEndIndex(3);
+    	
 	 	engine.copySelectedText();
+	 	sel.setBeginIndex(2);
 	 	sel.setEndIndex(4);
-    	sel.setBeginIndex(2);
+    	
 	 	engine.copySelectedText();
 	 	assertEquals("to", engine.getClipboardContents());
     }
@@ -111,8 +108,9 @@ class EngineTest {
     void cutSelectedText() {
     	engine.insert("toto");
     	Selection sel = engine.getSelection();
-    	sel.setEndIndex(1);
     	sel.setBeginIndex(1);
+    	sel.setEndIndex(1);
+    	
 	 	assertThrows(IndexOutOfBoundsException.class, () -> engine.cutSelectedText());
 	 	
     }
@@ -121,8 +119,9 @@ class EngineTest {
     void copySelectedText() {
     	engine.insert("toto");
     	Selection sel = engine.getSelection();
-    	sel.setEndIndex(4);
     	sel.setBeginIndex(2);
+    	sel.setEndIndex(4);
+    	
 	 	engine.copySelectedText();
 	 	assertEquals("to", engine.getClipboardContents());
 	 	assertEquals("toto", engine.getBufferContents());
@@ -132,11 +131,16 @@ class EngineTest {
     void pasteClipboard() {
     	engine.insert("totolala");
     	Selection sel = engine.getSelection();
-    	sel.setEndIndex(4);
     	sel.setBeginIndex(0);
+    	sel.setEndIndex(4);
+    	
+    	
+    	
     	engine.cutSelectedText();
     	sel.setEndIndex(4);
     	sel.setBeginIndex(4);
+    	
+    	
     	engine.pasteClipboard();
     	assertEquals("toto", engine.getClipboardContents());
 	 	assertEquals("lalatoto", engine.getBufferContents());

@@ -102,7 +102,7 @@ public class EngineImpl implements Engine {
     	//deplacer le endIndex pour le mettre au bon endroit
     	int index=selection.getBeginIndex() + s.length();
     	selection.setEndIndex(index);
-    	//selection.setBeginIndex(index);
+    	selection.setBeginIndex(index);
     	
     }
 
