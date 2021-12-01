@@ -39,7 +39,7 @@ public class CopyCommand implements Command{
 
 	@Override
 	public void setMemento(Memento m) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

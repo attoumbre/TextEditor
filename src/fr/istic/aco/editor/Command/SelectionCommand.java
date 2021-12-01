@@ -1,7 +1,7 @@
 package fr.istic.aco.editor.Command;
 
 import fr.istic.aco.editor.Invoker.Invoker;
-import fr.istic.aco.editor.Memento.InsertMemento;
+import fr.istic.aco.editor.Memento.SelectionMemento;
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Receiver.Selection;
@@ -14,12 +14,12 @@ public class SelectionCommand implements Command{
 	private Memento memento;
 	private Recorder recorder;
 	
-	public SelectionCommand(Engine engine,Recorder recorder, Invoker invoker) {
+	
+	public SelectionCommand(Engine engine,Recorder recorder, Invoker invoker,SelectionMemento memento) {
 		this.engine=engine;
 		this.recorder = recorder;
 		this.invoker=invoker;
-		this.memento = new InsertMemento();
-		
+		this.memento = memento;	
 	}
 	
 	@Override
@@ -29,13 +29,11 @@ public class SelectionCommand implements Command{
 		Selection selection=engine.getSelection();
 		selection.setBeginIndex(invoker.getIndexB());
 		selection.setEndIndex(invoker.getIndexF());
-		//changer les index dans le memento
-		getMemento().setIndexB(invoker.getIndexB());
-		getMemento().setIndexF(invoker.getIndexF());
-		
-		
+		this.recorder.save(this);
 		recorder.save(this);
-		
+		//changer les index dans le memento
+		setMemento(memento);
+
 	}
 
 	@Override
@@ -52,7 +50,8 @@ public class SelectionCommand implements Command{
 
 	@Override
 	public void setMemento(Memento m) {
-		this.memento = m;
+		m.setIndexB(invoker.getIndexB());
+		m.setIndexF(invoker.getIndexF());
 		
 	}
 }

@@ -16,7 +16,7 @@ public class ReplayCommand implements Command {
 	@Override
 	public void execute() {
 		this.recoder.replay();
-
+		this.recoder.save(this);
 	}
 
 	@Override

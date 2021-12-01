@@ -12,13 +12,14 @@ public class InsertCommand implements Command{
 	private Invoker invoker;
 	private Recorder recorder;
 	private Memento memento;
+	String element;
 	
 	
-	public InsertCommand(Engine engine, Recorder recorder,Invoker invoker) {
+	public InsertCommand(Engine engine, Recorder recorder,Invoker invoker, InsertMemento memento) {
 		this.engine = engine;
 		this.recorder = recorder;
 		this.invoker = invoker;
-		memento = new InsertMemento();
+		this.memento = memento;
 	}
 
 	/**
@@ -26,12 +27,13 @@ public class InsertCommand implements Command{
 	 */
 	@Override
 	public void execute() {
-		String element = invoker.getElement();
-		engine.insert(element);
-		//memento met a jour le text
-		memento.SetText(element);
+		this.element = invoker.getElement();
+		this.engine.insert(element);
 		//recorder save la commande cela nous evite de faire une concrete commande save
 		recorder.save(this);
+		//memento met a jour le text
+		setMemento(this.memento);
+		
 	}
 	
 	
@@ -39,19 +41,19 @@ public class InsertCommand implements Command{
 	@Override
 	public Memento getMemento() {
 		
-		return memento;
+		return this.memento;
 	}
 
 	@Override
 	public Engine getEngine() {
 		
-		return engine;
+		return this.engine;
 	}
 
 	@Override
 	public void setMemento(Memento m) {
-		// TODO Auto-generated method stub
 		
+		m.SetText(element);
 	}
 
 }
