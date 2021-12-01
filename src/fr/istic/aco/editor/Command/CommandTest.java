@@ -45,7 +45,7 @@ public class CommandTest {
 	        selection.setBeginIndex(1);
 	        selection.setEndIndex(3);
 	        
-	        Command copy = new CopyCommand(engine);
+	        Command copy = new CopyCommand(engine,recorder);
 	        copy.execute();
 	        assertEquals(engine.getClipboardContents(), "ie");
 	        assertEquals(engine.getBufferContents(), mot);
@@ -107,7 +107,7 @@ public class CommandTest {
 	        System.out.println(engine.getBufferContents());
 	        selection.execute();
 	        
-	        Command copy = new CopyCommand(engine);
+	        Command copy = new CopyCommand(engine,recorder);
 	        copy.execute();
 
 	        assertEquals("Salut",engine.getClipboardContents());
