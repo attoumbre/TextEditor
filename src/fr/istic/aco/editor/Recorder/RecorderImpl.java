@@ -3,13 +3,16 @@ package fr.istic.aco.editor.Recorder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayNameGenerator.Standard;
+
 import fr.istic.aco.editor.Command.Command;
+import fr.istic.aco.editor.Memento.Memento;
 public class RecorderImpl implements Recorder {
-	private List<Command> listCommand;
+	private List<Pair> listCommand;
 	private Boolean started;
 
 	public RecorderImpl() {
-		this.listCommand = new ArrayList<Command>();
+		this.listCommand = new ArrayList<Pair>();
 		started = false;
 	}
 	
@@ -18,8 +21,13 @@ public class RecorderImpl implements Recorder {
 	@Override
 	public void save(Command c) {
 		
-		//Lors de l'insertion on ajoute le text à inserer dans le memento "c" contient donc un memento 
-		listCommand.add(c);
+		//Lors de l'insertion on ajoute le text à inserer dans le memento "c" contient donc un memento
+		if(started) {
+			Memento memento = c.getMemento();
+			Pair pair = new Pair(c,memento);
+			listCommand.add(pair);
+		}
+		
 		
 		
 	}
@@ -27,25 +35,15 @@ public class RecorderImpl implements Recorder {
 
 	@Override
 	public void replay() {
-		//replay que la derniere commande 
-		Command command= listCommand.get(listCommand.size()-1);
-		//trouver la condition pour jouer la derniere commande (insert ou selection)
-		
-		if(command.getMemento().getText()==null) {
-			//int bindex=0;
-			//int eindex=0;
-			
-			command.getEngine().getSelection().setEndIndex(command.getMemento().getIndexF());
-			command.getEngine().getSelection().setBeginIndex(command.getMemento().getIndexB());
-			//bindex=command.getEngine().getSelection().getBeginIndex();
-			//eindex=command.getEngine().getSelection().getEndIndex();
+		 if (!started) {
+	            for (int i = 0; i < listCommand.size(); i++) {
+	                Pair pair = listCommand.get(i);
+	                //comment rejouer la commande??
+	                pair.getCommand().execute(); //pas encore finis
+	                
+	            }
+	        }
 
-		}else {
-			//String text="";
-			//command.getEngine().getSelection().setBeginIndex(command.getEngine().getSelection().getEndIndex());
-			command.getEngine().insert(command.getMemento().getText());
-			//text= command.getEngine().getBufferContents();
-		}
 		
 		
 		
@@ -54,17 +52,25 @@ public class RecorderImpl implements Recorder {
 
 
 	@Override
-	public void Start() {
-		// TODO Auto-generated method stub
+	public void start() {
+		started = true;
 		
 	}
 
 
 
 	@Override
-	public void Stop() {
-		// TODO Auto-generated method stub
+	public void stop() {
+		started = false;
 		
+	}
+
+
+
+	@Override
+	public Boolean started() {
+		
+		return started;
 	}
 
 }
