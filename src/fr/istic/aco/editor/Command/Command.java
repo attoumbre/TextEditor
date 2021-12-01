@@ -17,6 +17,12 @@ public interface Command {
 	Memento getMemento();
 	
 	/**
+	 * 
+	 * modifiie le memento
+	 */
+	void setMemento(Memento m);
+	
+	/**
 	 * retourner l'engine
 	 * @return
 	 */

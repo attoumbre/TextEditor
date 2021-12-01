@@ -31,4 +31,10 @@ public class ReplayCommand implements Command {
 		return null;
 	}
 
+	@Override
+	public void setMemento(Memento m) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

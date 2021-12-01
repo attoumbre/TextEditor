@@ -2,16 +2,18 @@ package fr.istic.aco.editor.Command;
 
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
+import fr.istic.aco.editor.Recorder.Recorder;
 
 public class CopyCommand implements Command{
 	
 	private Engine engine;
+	private Recorder recorder;
 	
 	
 	
-	
-	public CopyCommand(Engine engine) {
+	public CopyCommand(Engine engine, Recorder recorder) {
 		this.engine = engine;
+		this.recorder = recorder;
 		
 	}
 	
@@ -19,6 +21,7 @@ public class CopyCommand implements Command{
 	public void execute() {
 		//executer la commande via engine qui sait qui peut l'executer
 		engine.copySelectedText();
+		recorder.save(this);
 		
 	}
 	
@@ -32,6 +35,12 @@ public class CopyCommand implements Command{
 	public Engine getEngine() {
 		
 		return engine;
+	}
+
+	@Override
+	public void setMemento(Memento m) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -29,7 +29,7 @@ public class SelectionCommand implements Command{
 		Selection selection=engine.getSelection();
 		selection.setBeginIndex(invoker.getIndexB());
 		selection.setEndIndex(invoker.getIndexF());
-		
+		//changer les index dans le memento
 		getMemento().setIndexB(invoker.getIndexB());
 		getMemento().setIndexF(invoker.getIndexF());
 		
@@ -48,5 +48,11 @@ public class SelectionCommand implements Command{
 	public Engine getEngine() {
 		
 		return engine;
+	}
+
+	@Override
+	public void setMemento(Memento m) {
+		this.memento = m;
+		
 	}
 }

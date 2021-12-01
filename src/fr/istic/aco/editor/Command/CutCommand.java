@@ -33,4 +33,10 @@ public class CutCommand implements Command{
 		return engine;
 	}
 
+	@Override
+	public void setMemento(Memento m) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
