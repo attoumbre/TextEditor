@@ -18,14 +18,22 @@ public interface Recorder {
 	public void replay();
 	
 	/**
-	 * true si enregistrement
-	 * @return
+	 * met started à true pour debuter enregistrement
+	 * 
 	 */
-	public Boolean Start();
+	public void start();
 	
 	/**
-	 * true si fin enregistrement
+	 * met started à false pour mettre fin à l'enregistrement
+	 * 
+	 */
+	public void stop();
+	
+	/**
+	 * true si l'enregistrement a débuté
+	 * false pour l'arreter
 	 * @return
 	 */
-	public Boolean Stop();
+	public Boolean started();
+	
 }

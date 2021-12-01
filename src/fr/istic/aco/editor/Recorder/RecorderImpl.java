@@ -6,9 +6,11 @@ import java.util.List;
 import fr.istic.aco.editor.Command.Command;
 public class RecorderImpl implements Recorder {
 	private List<Command> listCommand;
+	private Boolean started;
 
 	public RecorderImpl() {
 		this.listCommand = new ArrayList<Command>();
+		started = false;
 	}
 	
 	
@@ -52,17 +54,17 @@ public class RecorderImpl implements Recorder {
 
 
 	@Override
-	public Boolean Start() {
+	public void Start() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 
 
 	@Override
-	public Boolean Stop() {
+	public void Stop() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }
