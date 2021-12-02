@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Invoker.InvokerImpl;
-import fr.istic.aco.editor.Memento.InsertMemento;
-import fr.istic.aco.editor.Memento.Memento;
-import fr.istic.aco.editor.Memento.SelectionMemento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Receiver.EngineImpl;
 import fr.istic.aco.editor.Receiver.Selection;
@@ -20,8 +17,8 @@ public class CommandTest {
 	 	private Engine engine;
 	    private Recorder recorder;
 	    private Invoker invoker;
-        private SelectionMemento memento;
-        private InsertMemento memento2;
+        //private SelectionMemento memento;
+        //private InsertMemento memento2;
 
 	    /**
 	     * Initialisation des classes utiliser a chaque demarrage de Test
@@ -31,8 +28,8 @@ public class CommandTest {
 	        engine = new EngineImpl();
 	        recorder = new RecorderImpl();
 	        invoker = new InvokerImpl();
-	        memento = new SelectionMemento();
-	        memento2 = new InsertMemento();
+	        //memento = new SelectionMemento();
+	       // memento2 = new InsertMemento();
 	    }
 
 	    /**
@@ -107,9 +104,9 @@ public class CommandTest {
 	        invoker.setElement(content);
 	        invoker.setIndexB(0);
 	        invoker.setIndexF(5);
-	        Command insert = new InsertCommand(engine, recorder , invoker, memento2);
+	        Command insert = new InsertCommand(engine, recorder , invoker);
 	        insert.execute();
-	        Command selection = new SelectionCommand(engine, recorder,invoker, memento);
+	        Command selection = new SelectionCommand(engine, recorder,invoker);
 	        System.out.println(engine.getBufferContents());
 	        selection.execute();
 	        
@@ -123,7 +120,7 @@ public class CommandTest {
 	    void insertCommmand() {
 	        String mot = "Bienvenu Insert";
 	        invoker.setElement(mot);
-	        Command insert = new InsertCommand(engine, recorder , invoker, memento2);
+	        Command insert = new InsertCommand(engine, recorder , invoker);
 	        insert.execute();
 	        assertEquals(engine.getBufferContents(), mot);
 
@@ -137,13 +134,13 @@ public class CommandTest {
 	    	invoker.setIndexB(0);
 	    	 invoker.setIndexF(5);
 		     
-		     Command selection = new SelectionCommand(engine, recorder , invoker, memento);
+		     Command selection = new SelectionCommand(engine, recorder , invoker);
 		     //save dans son execution
 		     selection.execute();
 		     System.out.println(engine.getBufferContents());
 		     //deuxieme commande 
 	    	invoker.setElement(mot);
-		    Command insert = new InsertCommand(engine, recorder , invoker, memento2);
+		    Command insert = new InsertCommand(engine, recorder , invoker);
 		    //save dans son execution
 		    insert.execute();
 		    //replay la derniere
@@ -160,7 +157,7 @@ public class CommandTest {
 		     System.out.println(engine.getBufferContents());
 		     //deuxieme commande 
 	    	invoker.setElement(mot);
-		    Command insert = new InsertCommand(engine, recorder , invoker, memento2);
+		    Command insert = new InsertCommand(engine, recorder , invoker);
 		    //save dans son execution
 		    insert.execute();
 		    
@@ -169,7 +166,7 @@ public class CommandTest {
 		    invoker.setIndexB(0);
 	    	 invoker.setIndexF(5);
 		     
-		     Command selection = new SelectionCommand(engine, recorder , invoker, memento);
+		     Command selection = new SelectionCommand(engine, recorder , invoker);
 		     //save dans son execution
 		     selection.execute();
 		    //replay la derniere

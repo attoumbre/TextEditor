@@ -5,6 +5,11 @@ public class SelectionMemento implements Memento{
 
 	private int indexB;
 	private int indexF;
+	
+	public SelectionMemento(int indexB, int indexF) {
+		this.indexB = indexB;
+		this.indexF = indexF;
+	}
 	@Override
 	public void SetText(String text) {
 		// TODO Auto-generated method stub
