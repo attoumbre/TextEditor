@@ -27,7 +27,12 @@ public class InsertCommand implements Command{
 	 */
 	@Override
 	public void execute() {
-		this.element = invoker.getElement();
+		
+		if(invoker==null) {
+			this.element = getMemento().getText();
+		}else {
+			this.element = invoker.getElement();
+		}
 		this.engine.insert(element);
 		//recorder save la commande cela nous evite de faire une concrete commande save
 		recorder.save(this);

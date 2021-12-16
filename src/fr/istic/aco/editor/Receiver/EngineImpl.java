@@ -51,16 +51,16 @@ public class EngineImpl implements Engine {
     @Override
     public void cutSelectedText() {
 	    // recuperation du text dans le buffer
-    	if(selection.getBeginIndex()== selection.getEndIndex()) {
- 		throw new IndexOutOfBoundsException("On ne peut pas couper si les index sont identiques");
+    	if(selection.getBeginIndex()!= selection.getEndIndex()) {
+    		String contentCut = stringBuffer.substring(getSelection().getBeginIndex(), getSelection().getEndIndex());
+    		 
+   		 //mettre à jour le presse papier
+   		 setClipBoardContent(contentCut);
+   	
+   		 //On peut supprimer maintenant l'interval qu'on vient de selectionner
+   		 delete();
    	}
-    	String contentCut = stringBuffer.substring(getSelection().getBeginIndex(), getSelection().getEndIndex());
-	 
-		 //mettre à jour le presse papier
-		 setClipBoardContent(contentCut);
-	
-		 //On peut supprimer maintenant l'interval qu'on vient de selectionner
-		 delete();
+    	
 		
     }
 
@@ -71,12 +71,14 @@ public class EngineImpl implements Engine {
      */
     @Override
     public void copySelectedText() {
-        
-    	 // recuperation du text dans le buffer
-		 String contentCut = stringBuffer.substring(getSelection().getBeginIndex(), getSelection().getEndIndex());
-		 
-		 //mettre à jour le presse papier
-		 setClipBoardContent(contentCut);
+    	if(selection.getBeginIndex()!= selection.getEndIndex()) {
+    		// recuperation du text dans le buffer
+   		 String contentCut = stringBuffer.substring(getSelection().getBeginIndex(), getSelection().getEndIndex());
+   		 
+   		 //mettre à jour le presse papier
+   		 setClipBoardContent(contentCut);
+       	}
+    	 
 		 
     }
 
@@ -97,7 +99,9 @@ public class EngineImpl implements Engine {
      */
     @Override
     public void insert(String s) {
-    	
+    	if(s==null) {
+    		throw new IllegalArgumentException("le mot ne peut etre null");
+    	}
     	stringBuffer.replace(getSelection().getBeginIndex(), getSelection().getEndIndex(),s);
     	//deplacer le endIndex pour le mettre au bon endroit
     	int index=selection.getBeginIndex() + s.length();
@@ -111,10 +115,12 @@ public class EngineImpl implements Engine {
      */
     @Override
     public void delete() {
+    	if(selection.getBeginIndex()!= selection.getEndIndex()) {
+    		this.stringBuffer.delete(getSelection().getBeginIndex() ,getSelection().getEndIndex());
+        	//on doit mettre les index fin et debut de selection au meme endroit
+    		 selection.setEndIndex(selection.getBeginIndex());
+    	}
     	
-    	this.stringBuffer.delete(getSelection().getBeginIndex() ,getSelection().getEndIndex());
-    	//on doit mettre les index fin et debut de selection au meme endroit
-		 selection.setEndIndex(selection.getBeginIndex());
     }
     
     public void setClipBoardContent(String clipBord) {

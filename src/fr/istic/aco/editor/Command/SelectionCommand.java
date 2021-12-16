@@ -27,9 +27,14 @@ public class SelectionCommand implements Command{
 		
 		
 		Selection selection=engine.getSelection();
-		selection.setBeginIndex(invoker.getIndexB());
-		selection.setEndIndex(invoker.getIndexF());
-		this.recorder.save(this);
+		if(invoker == null) {
+			selection.setBeginIndex(getMemento().getIndexB());
+			selection.setEndIndex(getMemento().getIndexF());
+		}else {
+			selection.setBeginIndex(invoker.getIndexB());
+			selection.setEndIndex(invoker.getIndexF());
+		}
+		
 		recorder.save(this);
 		
 
