@@ -1,5 +1,7 @@
 package fr.istic.aco.editor.Command;
 
+import java.util.Optional;
+
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recorder;
@@ -19,9 +21,9 @@ public class StopCommand implements Command{
 	}
 
 	@Override
-	public Memento getMemento() {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional <Memento> getMemento() {
+	
+		return Optional.empty();
 	}
 
 	@Override

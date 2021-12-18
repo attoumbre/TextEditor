@@ -1,5 +1,7 @@
 package fr.istic.aco.editor.Command;
 
+import java.util.Optional;
+
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recorder;
@@ -24,9 +26,9 @@ public class CutCommand implements Command{
 	}
 
 	@Override
-	public Memento getMemento() {
+	public Optional <Memento> getMemento() {
 		
-		return null;
+		return Optional.empty();
 	}
 
 	@Override

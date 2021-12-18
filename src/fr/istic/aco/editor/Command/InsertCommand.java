@@ -56,6 +56,7 @@ public class InsertCommand implements Command{
 
 	@Override
 	public void setMemento(Memento m) {
+		if(m == null) { throw new IllegalArgumentException();}
 		element = ((InsertMemento) m).getText();
 		isRestore = true;
 	}

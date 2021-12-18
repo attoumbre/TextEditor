@@ -23,7 +23,7 @@ public class SelectionImpl implements Selection {
      */
 	@Override
 	public int getBeginIndex() {
-		// TODO Auto-generated method stub
+		
 		return beginIndex;
 	}
 

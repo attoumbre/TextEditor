@@ -1,5 +1,7 @@
 package fr.istic.aco.editor.Command;
 
+import java.util.Optional;
+
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Memento.SelectionMemento;
 import fr.istic.aco.editor.Memento.Memento;
@@ -11,8 +13,10 @@ public class SelectionCommand implements Command{
 
 	private Engine engine;
 	private Invoker invoker;
-	
 	private Recorder recorder;
+	private Boolean isRestore = false;
+	private int IndexD;
+	private int IndexF;
 	
 	
 	public SelectionCommand(Engine engine,Recorder recorder, Invoker invoker) {
@@ -25,25 +29,30 @@ public class SelectionCommand implements Command{
 	@Override
 	public void execute() {
 		
-		
+		if(!isRestore) {
+			IndexD = invoker.getIndexB();	
+			IndexF = invoker.getIndexF();
+		}
 		Selection selection=engine.getSelection();
-		if(invoker == null) {
-			selection.setBeginIndex(getMemento().getIndexB());
-			selection.setEndIndex(getMemento().getIndexF());
-		}else {
-			selection.setBeginIndex(invoker.getIndexB());
-			selection.setEndIndex(invoker.getIndexF());
+		
+		if (selection.getEndIndex() < IndexD) {
+			selection.setEndIndex(IndexF);
+			selection.setBeginIndex(IndexD);
+		} else {
+			selection.setBeginIndex(IndexD);
+			selection.setEndIndex(IndexF);
 		}
 		
-		recorder.save(this);
 		
+		
+		recorder.save(this);
+		isRestore = false;
 
 	}
 
 	@Override
-	public Memento getMemento() {
-		Memento memento = new SelectionMemento(invoker.getIndexB(),invoker.getIndexF());
-		return memento;
+	public Optional<Memento> getMemento() {
+		return Optional.of(new SelectionMemento(IndexD,IndexF));
 	}
 
 	@Override
@@ -54,11 +63,10 @@ public class SelectionCommand implements Command{
 
 	@Override
 	public void setMemento(Memento m) {
-		if(m != null) {
-			m.setIndexB(invoker.getIndexB());
-			m.setIndexF(invoker.getIndexF());
-		}
-		
+		if(m == null) { throw new IllegalArgumentException();}
+		IndexD = ((SelectionMemento) m).getIndexB();
+		IndexF = ((SelectionMemento) m).getIndexF();
+		isRestore = true;
 		
 	}
 }
