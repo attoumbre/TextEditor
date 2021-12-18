@@ -21,7 +21,7 @@ public class RecorderImpl implements Recorder {
 		
 		if(started) {
 			if(c==null) {
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("command ne peut etre null");
 			}
 			Memento memento = c.getMemento();
 			Pair pair = new Pair(c,memento);

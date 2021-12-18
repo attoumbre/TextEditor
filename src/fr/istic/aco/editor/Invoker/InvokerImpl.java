@@ -63,7 +63,7 @@ public class InvokerImpl implements Invoker{
 		if(element != null) {
 			this.element = element;
 		}else {
-			throw new NullPointerException("aucun element fourni ");
+			throw new IllegalArgumentException("aucun element fourni ");
 		}
 		
 	}

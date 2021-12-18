@@ -1,5 +1,7 @@
 package fr.istic.aco.editor.Command;
 
+import java.util.Optional;
+
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Memento.InsertMemento;
 import fr.istic.aco.editor.Memento.Memento;
@@ -11,8 +13,8 @@ public class InsertCommand implements Command{
 	private Engine engine;
 	private Invoker invoker;
 	private Recorder recorder;
-	
-	String element;
+	private Boolean isRestore = false;
+	private String element;
 	
 	
 	public InsertCommand(Engine engine, Recorder recorder,Invoker invoker) {
@@ -28,24 +30,22 @@ public class InsertCommand implements Command{
 	@Override
 	public void execute() {
 		
-		if(invoker==null) {
-			this.element = getMemento().getText();
-		}else {
-			this.element = invoker.getElement();
+		if(!isRestore) {
+			element = invoker.getElement();	
 		}
+		
 		this.engine.insert(element);
 		//recorder save la commande cela nous evite de faire une concrete commande save
 		recorder.save(this);
-		
+		isRestore = false;
 		
 	}
 	
 	
 
 	@Override
-	public Memento getMemento() {
-		Memento memento = new InsertMemento(element);
-		return memento;
+	public Optional<Memento> getMemento() {
+		return Optional.of(new InsertMemento(element));
 	}
 
 	@Override
@@ -56,10 +56,8 @@ public class InsertCommand implements Command{
 
 	@Override
 	public void setMemento(Memento m) {
-		if(m != null) {
-			m.SetText(element);
-		}
-		
+		element = ((InsertMemento) m).getText();
+		isRestore = true;
 	}
 
 }
