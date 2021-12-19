@@ -1,7 +1,5 @@
 package fr.istic.aco.editor.Recorder;
 
-import fr.istic.aco.editor.Command.Command;
-
 public interface Recorder extends Recordable{
 
 	/**
@@ -9,7 +7,7 @@ public interface Recorder extends Recordable{
 	 *
 	 *  @throws IllegalArgumentException si la command c est nulle 
 	 */
-	public void save(Command c);
+	public void save(Recordable c);
 	
 	/**
 	 * methode permettant rejouer la derniere commande

@@ -3,10 +3,10 @@ package fr.istic.aco.editor.Command;
 import java.util.Optional;
 
 import fr.istic.aco.editor.Memento.Memento;
-import fr.istic.aco.editor.Memento.Originator;
+import fr.istic.aco.editor.Recorder.Recordable;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class ReplayCommand implements Command , Originator{
+public class ReplayCommand implements Recordable{
 
 	private Recorder recoder;
 	

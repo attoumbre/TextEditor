@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import fr.istic.aco.editor.Command.Command;
 import fr.istic.aco.editor.Memento.Memento;
 public class RecorderImpl implements Recorder {
 	
@@ -19,7 +18,7 @@ public class RecorderImpl implements Recorder {
 	
 
 	@Override
-	public void save(Command c) {
+	public void save(Recordable c) {
 		
 		if(started) {
 			if(c==null) {
@@ -34,30 +33,7 @@ public class RecorderImpl implements Recorder {
 
 	@Override
 	public void replay() {
-		 if (!started) {
-	            for (int i = 0; i < listCommand.size(); i++) {
-	                Pair pair = listCommand.get(i);
-	                //comment rejouer la commande?? avec des if peut etre
-	                //avoir le memento de la paire
-	                Memento memento = pair.getMemento();
-	                if(memento == null) {
-	                	//executer les commande 
-		                pair.getCommand().execute();
-	                }else {
-	                	 //modifier ou restaurer le memento (en executant la commande on la save il faut save le memento aussi
-		                pair.getCommand().setMemento(memento);
-		                //à quel moment on utilise les elements du memento pour faire l'execution de la commande??
-		                //executer les commande 
-		                pair.getCommand().execute(); //pas encore finis
-	                }
-	               
-	                
-	            }
-	        }
-
-		
-		
-		
+	
 	}
 
 

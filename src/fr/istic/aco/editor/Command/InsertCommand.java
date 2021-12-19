@@ -5,11 +5,11 @@ import java.util.Optional;
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Memento.InsertMemento;
 import fr.istic.aco.editor.Memento.Memento;
-import fr.istic.aco.editor.Memento.Originator;
 import fr.istic.aco.editor.Receiver.Engine;
+import fr.istic.aco.editor.Recorder.Recordable;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class InsertCommand implements Command, Originator{
+public class InsertCommand implements Recordable{
 	
 	private Engine engine;
 	private Invoker invoker;

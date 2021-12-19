@@ -3,14 +3,14 @@ package fr.istic.aco.editor.Command;
 import java.util.Optional;
 
 import fr.istic.aco.editor.Invoker.Invoker;
-import fr.istic.aco.editor.Memento.SelectionMemento;
 import fr.istic.aco.editor.Memento.Memento;
-import fr.istic.aco.editor.Memento.Originator;
+import fr.istic.aco.editor.Memento.SelectionMemento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Receiver.Selection;
+import fr.istic.aco.editor.Recorder.Recordable;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class SelectionCommand implements Command, Originator{
+public class SelectionCommand implements Recordable{
 
 	private Engine engine;
 	private Invoker invoker;
