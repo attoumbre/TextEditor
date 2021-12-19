@@ -21,10 +21,7 @@ public class RecorderImpl implements Recorder {
 	public void save(Recordable c) {
 		
 		if(started) {
-			if(c==null) {
-				throw new IllegalArgumentException("command ne peut etre null");
-			}
-			
+
 			listCommand.add(new Pair<>(c, c.getMemento()));
 		}
 		
@@ -38,6 +35,7 @@ public class RecorderImpl implements Recorder {
 			if(pair.getM().isPresent()) {
 				pair.getR().setMemento(pair.getM().get());
 			}
+			pair.getR().execute();
 		});
 	}
 

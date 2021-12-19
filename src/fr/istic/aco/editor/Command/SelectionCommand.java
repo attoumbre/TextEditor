@@ -58,7 +58,7 @@ public class SelectionCommand implements Recordable{
 
 	@Override
 	public void setMemento(Memento m) {
-		if(m == null) { throw new IllegalArgumentException();}
+		
 		IndexD = ((SelectionMemento) m).getIndexB();
 		IndexF = ((SelectionMemento) m).getIndexF();
 		isRestore = true;
