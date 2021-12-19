@@ -129,8 +129,11 @@ public class EngineImpl implements Engine {
     }
     
     
-	
-	
+	public void reset() {
+		
+		this.stringBuffer.delete(0, getBufferContents().length());
+		selection.setEndIndex(0);
+	}
 	
     
 	

@@ -1,7 +1,5 @@
 package fr.istic.aco.editor.Receiver;
 
-import fr.istic.aco.editor.Memento.Memento;
-
 /**
  * Main API for the text editing engine
  *
@@ -60,5 +58,5 @@ public interface Engine {
      */
     void delete();
     
-   
+   void reset();
 }
