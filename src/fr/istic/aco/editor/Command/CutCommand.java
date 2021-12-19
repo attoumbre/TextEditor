@@ -14,7 +14,8 @@ public class CutCommand implements Recordable{
 	private Recorder recorder;
 	private UndoManager undoManager;
 	
-	public CutCommand(Engine engine, Recorder recoder) {
+	public CutCommand(Engine engine, Recorder recoder , UndoManager undoManager) {
+		this.undoManager = undoManager;
 		this.engine = engine;
 		this.recorder=  recoder;
 		

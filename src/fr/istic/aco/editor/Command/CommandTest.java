@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import fr.istic.aco.editor.Caretaker.UndoManager;
+import fr.istic.aco.editor.Caretaker.UndoManagerImpl;
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Invoker.InvokerImpl;
 import fr.istic.aco.editor.Receiver.Engine;
@@ -17,6 +19,7 @@ public class CommandTest {
 	 	private Engine engine;
 	    private Recorder recorder;
 	    private Invoker invoker;
+	    private UndoManager undoManager;
         //private SelectionMemento memento;
         //private InsertMemento memento2;
 
@@ -28,6 +31,7 @@ public class CommandTest {
 	        engine = new EngineImpl();
 	        recorder = new RecorderImpl();
 	        invoker = new InvokerImpl();
+	        undoManager = new UndoManagerImpl();
 	        //memento = new SelectionMemento();
 	       // memento2 = new InsertMemento();
 	    }
@@ -51,7 +55,7 @@ public class CommandTest {
 	        selection.setBeginIndex(1);
 	        selection.setEndIndex(3);
 	        
-	        Command copy = new CopyCommand(engine,recorder);
+	        Command copy = new CopyCommand(engine,recorder, undoManager);
 	        copy.execute();
 	        stop.execute();
 	        assertEquals(engine.getClipboardContents(), "ie");
@@ -72,7 +76,7 @@ public class CommandTest {
 	        selection.setBeginIndex(0);
 	        selection.setEndIndex(4);
 	        
-	        Command cut = new CutCommand(engine,recorder);
+	        Command cut = new CutCommand(engine,recorder, undoManager);
 	        cut.execute();
 	        
 	        stop.execute();
@@ -94,7 +98,7 @@ public class CommandTest {
 	        selection.setBeginIndex(1);
 	        selection.setEndIndex(4);
 	        
-	        Command delete = new DeleteCommand(engine,recorder);
+	        Command delete = new DeleteCommand(engine,recorder,undoManager);
 	        delete.execute();
 	        stop.execute();
 	        assertEquals(engine.getBufferContents(), "Bvenu delete");
@@ -132,13 +136,13 @@ public class CommandTest {
 	        invoker.setElement(content);
 	        invoker.setIndexB(0);
 	        invoker.setIndexF(5);
-	        Command insert = new InsertCommand(engine, recorder , invoker);
+	        Command insert = new InsertCommand(engine, recorder , invoker, undoManager);
 	        insert.execute();
-	        Command selection = new SelectionCommand(engine, recorder,invoker);
+	        Command selection = new SelectionCommand(engine, recorder,invoker, undoManager);
 	        System.out.println(engine.getBufferContents());
 	        selection.execute();
 	        
-	        Command copy = new CopyCommand(engine,recorder);
+	        Command copy = new CopyCommand(engine,recorder, undoManager);
 	        copy.execute();
 
 	        stop.execute();
@@ -154,7 +158,7 @@ public class CommandTest {
 
 	        String mot = "Bienvenu Insert";
 	        invoker.setElement(mot);
-	        Command insert = new InsertCommand(engine, recorder , invoker);
+	        Command insert = new InsertCommand(engine, recorder , invoker, undoManager);
 	        insert.execute();
 	        stop.execute();
 	        assertEquals(engine.getBufferContents(), mot);
@@ -170,23 +174,23 @@ public class CommandTest {
 	    	
 	    	System.out.println(engine.getBufferContents());
 	    	invoker.setElement(mot);
-		    Command insert = new InsertCommand(engine, recorder , invoker);
+		    Command insert = new InsertCommand(engine, recorder , invoker, undoManager);
 		    insert.execute();
 		    //System.out.println(engine.getBufferContents());
 	    	
 	    	invoker.setIndexB(0);
 	    	invoker.setIndexF(5);
-		    Command selection = new SelectionCommand(engine, recorder , invoker);
+		    Command selection = new SelectionCommand(engine, recorder , invoker, undoManager);
 		    selection.execute();
 		   
-		    Command copy = new CopyCommand(engine, recorder);
+		    Command copy = new CopyCommand(engine, recorder, undoManager);
 		    copy.execute();
 		   
 		    invoker.setIndexB(15);
 	    	invoker.setIndexF(15);
 	    	selection.execute();
 	    	
-	    	Command past = new PastCommand(engine, recorder);
+	    	Command past = new PastCommand(engine, recorder, undoManager);
 	    	past.execute();
 	    	stop.execute();
 	    	

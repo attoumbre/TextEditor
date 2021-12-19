@@ -19,7 +19,8 @@ public class InsertCommand implements Recordable{
 	private String element;
 	
 	private UndoManager undoManager;
-	public InsertCommand(Engine engine, Recorder recorder,Invoker invoker) {
+	public InsertCommand(Engine engine, Recorder recorder,Invoker invoker, UndoManager undoManager) {
+		this.undoManager = undoManager;
 		this.engine = engine;
 		this.recorder = recorder;
 		this.invoker = invoker;

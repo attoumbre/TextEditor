@@ -16,7 +16,8 @@ public class DeleteCommand implements Recordable{
 	private UndoManager undoManager;
 	
 	
-	public DeleteCommand(Engine engine, Recorder recorder) {
+	public DeleteCommand(Engine engine, Recorder recorder, UndoManager undoManager) {
+		this.undoManager = undoManager;
 	
 		this.engine=engine;
 		this.recorder= recorder;

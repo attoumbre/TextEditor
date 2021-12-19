@@ -2,6 +2,7 @@ package fr.istic.aco.editor.Command;
 
 import java.util.Optional;
 
+import fr.istic.aco.editor.Caretaker.UndoManager;
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recordable;
@@ -11,10 +12,11 @@ public class CopyCommand implements Recordable{
 	
 	private Engine engine;
 	private Recorder recorder;
+	private UndoManager undoManager;
 	
 	
-	
-	public CopyCommand(Engine engine, Recorder recorder) {
+	public CopyCommand(Engine engine, Recorder recorder, UndoManager undoManager) {
+		this.undoManager = undoManager;
 		this.engine = engine;
 		this.recorder = recorder;
 		
@@ -22,7 +24,7 @@ public class CopyCommand implements Recordable{
 	
 	@Override
 	public void execute() {
-		//executer la commande via engine qui sait qui peut l'executer
+		undoManager.store(this);
 		engine.copySelectedText();
 		recorder.save(this);
 		

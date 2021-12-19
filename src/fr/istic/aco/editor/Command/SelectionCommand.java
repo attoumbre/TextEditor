@@ -21,7 +21,8 @@ public class SelectionCommand implements Recordable{
 	private int IndexF;
 	private UndoManager undoManager;
 	
-	public SelectionCommand(Engine engine,Recorder recorder, Invoker invoker) {
+	public SelectionCommand(Engine engine,Recorder recorder, Invoker invoker, UndoManager undoManager) {
+		this.undoManager = undoManager;
 		this.engine=engine;
 		this.recorder = recorder;
 		this.invoker=invoker;
