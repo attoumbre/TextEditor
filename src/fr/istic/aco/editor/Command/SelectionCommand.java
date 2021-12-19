@@ -2,6 +2,7 @@ package fr.istic.aco.editor.Command;
 
 import java.util.Optional;
 
+import fr.istic.aco.editor.Caretaker.UndoManager;
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Memento.SelectionMemento;
@@ -18,7 +19,7 @@ public class SelectionCommand implements Recordable{
 	private Boolean isRestore = false;
 	private int IndexD;
 	private int IndexF;
-	
+	private UndoManager undoManager;
 	
 	public SelectionCommand(Engine engine,Recorder recorder, Invoker invoker) {
 		this.engine=engine;
@@ -29,7 +30,7 @@ public class SelectionCommand implements Recordable{
 	
 	@Override
 	public void execute() {
-		
+		undoManager.store(this);
 		if(!isRestore) {
 			IndexD = invoker.getIndexB();	
 			IndexF = invoker.getIndexF();

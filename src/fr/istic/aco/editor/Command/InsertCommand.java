@@ -2,6 +2,7 @@ package fr.istic.aco.editor.Command;
 
 import java.util.Optional;
 
+import fr.istic.aco.editor.Caretaker.UndoManager;
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Memento.InsertMemento;
 import fr.istic.aco.editor.Memento.Memento;
@@ -17,7 +18,7 @@ public class InsertCommand implements Recordable{
 	private Boolean isRestore = false;
 	private String element;
 	
-	
+	private UndoManager undoManager;
 	public InsertCommand(Engine engine, Recorder recorder,Invoker invoker) {
 		this.engine = engine;
 		this.recorder = recorder;
@@ -31,6 +32,7 @@ public class InsertCommand implements Recordable{
 	@Override
 	public void execute() {
 		
+		undoManager.store(this);
 		if(!isRestore) {
 			element = invoker.getElement();	
 		}

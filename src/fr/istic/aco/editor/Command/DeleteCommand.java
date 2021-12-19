@@ -2,6 +2,7 @@ package fr.istic.aco.editor.Command;
 
 import java.util.Optional;
 
+import fr.istic.aco.editor.Caretaker.UndoManager;
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recordable;
@@ -12,7 +13,7 @@ public class DeleteCommand implements Recordable{
 	
 	private Engine engine;
 	private Recorder recorder;
-	
+	private UndoManager undoManager;
 	
 	
 	public DeleteCommand(Engine engine, Recorder recorder) {
@@ -23,6 +24,7 @@ public class DeleteCommand implements Recordable{
 
 	@Override
 	public void execute() {
+		undoManager.store(this);
 		engine.delete();
 		recorder.save(this);
 	}

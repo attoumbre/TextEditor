@@ -192,10 +192,10 @@ public class CommandTest {
 	    	
 		    Command replay = new ReplayCommand(recorder);
 		    
-		    System.out.println(engine.getBufferContents() +"\n");
+		    
 		    replay.execute();
-		    System.out.println(engine.getBufferContents() +"\n");
-		    //assertEquals( mot+ mot+"enu Replay", engine.getBufferContents());
+		    
+		    assertEquals( "Bienvenu ReplayBienvBienvBienvenu Replay", engine.getBufferContents());
 
 	    }
 	    

@@ -5,6 +5,7 @@ public class EngineImpl implements Engine {
 	private StringBuffer stringBuffer;
 	private SelectionImpl selection;
 	private String clipBoard;
+
 	
 	public EngineImpl() {
 		 stringBuffer= new StringBuffer("");
@@ -126,4 +127,11 @@ public class EngineImpl implements Engine {
     public void setClipBoardContent(String clipBord) {
     	this.clipBoard=clipBord;
     }
+    
+    
+	
+	
+	
+    
+	
 }
