@@ -33,7 +33,12 @@ public class RecorderImpl implements Recorder {
 
 	@Override
 	public void replay() {
-	
+
+		listCommand.forEach(pair -> {
+			if(pair.getM().isPresent()) {
+				pair.getR().setMemento(pair.getM().get());
+			}
+		});
 	}
 
 
@@ -62,26 +67,5 @@ public class RecorderImpl implements Recorder {
 
 
 
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public Optional<Memento> getMemento() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public void setMemento(Memento m) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 }
