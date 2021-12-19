@@ -1,6 +1,8 @@
 package fr.istic.aco.editor.Command;
 
-public interface Command {
+import fr.istic.aco.editor.Memento.Originator;
+
+public interface Command extends Originator{
 
 	/**
 	 * execution de la concreteCommand

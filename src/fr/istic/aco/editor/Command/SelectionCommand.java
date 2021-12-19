@@ -5,6 +5,7 @@ import java.util.Optional;
 import fr.istic.aco.editor.Invoker.Invoker;
 import fr.istic.aco.editor.Memento.SelectionMemento;
 import fr.istic.aco.editor.Memento.Memento;
+import fr.istic.aco.editor.Memento.Originator;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Receiver.Selection;
 import fr.istic.aco.editor.Recorder.Recorder;

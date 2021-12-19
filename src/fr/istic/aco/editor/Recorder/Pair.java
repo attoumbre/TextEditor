@@ -1,33 +1,32 @@
 package fr.istic.aco.editor.Recorder;
 
-import fr.istic.aco.editor.Command.Command;
-import fr.istic.aco.editor.Memento.Memento;
+public class Pair<R,M>{
 
-public class Pair {
-
-	private Memento memento;
-	private Command command;
+	private M m ;
 	
-	Pair(Command cmd, Memento mmt){
-		command = cmd;
-		memento = mmt;
+	private R r;
+	
+	Pair(R r, M m){
+		this.m = m;
+		this.r = r;
 	}
 
-	public Memento getMemento() {
-		return memento;
+	public M getM() {
+		return m;
 	}
 
-	public void setMemento(Memento memento) {
-		this.memento = memento;
+	public void setM(M m) {
+		this.m = m;
 	}
 
-	public Command getCommand() {
-		return command;
+	public R getR() {
+		return r;
 	}
 
-	public void setCommand(Command command) {
-		this.command = command;
+	public void setR(R r) {
+		this.r = r;
 	}
+
 	
 	
 }

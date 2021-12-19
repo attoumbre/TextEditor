@@ -1,8 +1,6 @@
-package fr.istic.aco.editor.Command;
+package fr.istic.aco.editor.Memento;
 
 import java.util.Optional;
-
-import fr.istic.aco.editor.Memento.Memento;
 
 public interface Originator {
 

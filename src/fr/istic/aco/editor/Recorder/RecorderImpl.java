@@ -2,16 +2,18 @@ package fr.istic.aco.editor.Recorder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import fr.istic.aco.editor.Command.Command;
 import fr.istic.aco.editor.Memento.Memento;
 public class RecorderImpl implements Recorder {
-	private List<Pair> listCommand;
+	
+	private List<Pair<Recordable, Optional<Memento>>> listCommand;
 	private Boolean started;
 	
 	public RecorderImpl() {
-		this.listCommand = new ArrayList<Pair>();
-		started = false;
+		this.listCommand = new ArrayList<>();
+	
 	}
 	
 	
@@ -23,9 +25,8 @@ public class RecorderImpl implements Recorder {
 			if(c==null) {
 				throw new IllegalArgumentException("command ne peut etre null");
 			}
-			Memento memento = c.getMemento();
-			Pair pair = new Pair(c,memento);
-			listCommand.add(pair);
+			
+			listCommand.add(new Pair<>(c, c.getMemento()));
 		}
 		
 	}
@@ -81,6 +82,30 @@ public class RecorderImpl implements Recorder {
 	public Boolean started() {
 		
 		return started;
+	}
+
+
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public Optional<Memento> getMemento() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public void setMemento(Memento m) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

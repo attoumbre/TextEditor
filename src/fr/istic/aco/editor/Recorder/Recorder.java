@@ -2,7 +2,7 @@ package fr.istic.aco.editor.Recorder;
 
 import fr.istic.aco.editor.Command.Command;
 
-public interface Recorder {
+public interface Recorder extends Recordable{
 
 	/**
 	 * methode permettant de save la derniere commande jouée
