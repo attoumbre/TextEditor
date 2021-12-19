@@ -128,53 +128,43 @@ public class CommandTest {
 	    
 	    @Test
 	    void replayCommand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
 	    	String mot = "Bienvenu Replay";
-	    	engine.insert(mot);
-	    	//premiere commande
-	    	invoker.setIndexB(0);
-	    	 invoker.setIndexF(5);
-		     
-		     Command selection = new SelectionCommand(engine, recorder , invoker);
-		     //save dans son execution
-		     selection.execute();
-		     System.out.println(engine.getBufferContents());
-		     //deuxieme commande 
+	    	start.execute();
+	    	
+	    	System.out.println(engine.getBufferContents());
 	    	invoker.setElement(mot);
 		    Command insert = new InsertCommand(engine, recorder , invoker);
-		    //save dans son execution
 		    insert.execute();
-		    //replay la derniere
-		    recorder.replay();
-		    System.out.println(engine.getBufferContents());
-		    assertEquals( mot+ mot+"enu Replay", engine.getBufferContents());
+		    //System.out.println(engine.getBufferContents());
+	    	
+	    	invoker.setIndexB(0);
+	    	invoker.setIndexF(5);
+		    Command selection = new SelectionCommand(engine, recorder , invoker);
+		    selection.execute();
+		   
+		    Command copy = new CopyCommand(engine, recorder);
+		    copy.execute();
+		   
+		    invoker.setIndexB(15);
+	    	invoker.setIndexF(15);
+	    	selection.execute();
+	    	
+	    	Command past = new PastCommand(engine, recorder);
+	    	past.execute();
+	    	stop.execute();
+	    	
+		    Command replay = new ReplayCommand(recorder);
+		    
+		    
+		    replay.execute();
+		    
+		    assertEquals( "Bienvenu ReplayBienvBienvBienvenu Replay", engine.getBufferContents());
+
 
 	    }
 	    
-	    @Test
-	    void replayCommand1() {
-	    	String mot = "Bienvenu Replay";
-	    	
-		     System.out.println(engine.getBufferContents());
-		     //deuxieme commande 
-	    	invoker.setElement(mot);
-		    Command insert = new InsertCommand(engine, recorder , invoker);
-		    //save dans son execution
-		    insert.execute();
-		    
-		    engine.insert(mot);
-	    	//premiere commande
-		    invoker.setIndexB(0);
-	    	 invoker.setIndexF(5);
-		     
-		     Command selection = new SelectionCommand(engine, recorder , invoker);
-		     //save dans son execution
-		     selection.execute();
-		    //replay la derniere
-		    recorder.replay();
-		    
-		    assertEquals(0, engine.getSelection().getBeginIndex());
-		    //assertEquals(5, engine.getSelection().getEndIndex());
-
-	    }
+	   
 
 }
