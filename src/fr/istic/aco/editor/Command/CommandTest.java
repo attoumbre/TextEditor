@@ -41,6 +41,10 @@ public class CommandTest {
 	     */
 	    @Test
 	    void copyCommand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
+	    	
+	    	start.execute();
 	        String mot = "Bienvenu copy";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
@@ -49,6 +53,7 @@ public class CommandTest {
 	        
 	        Command copy = new CopyCommand(engine,recorder);
 	        copy.execute();
+	        stop.execute();
 	        assertEquals(engine.getClipboardContents(), "ie");
 	        assertEquals(engine.getBufferContents(), mot);
 
@@ -56,6 +61,11 @@ public class CommandTest {
 
 	    @Test
 	    void cutCommand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
+	    	
+	    	start.execute();
+
 	        String mot = "Bienvenu cut";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
@@ -64,6 +74,8 @@ public class CommandTest {
 	        
 	        Command cut = new CutCommand(engine,recorder);
 	        cut.execute();
+	        
+	        stop.execute();
 	        assertEquals(engine.getClipboardContents(), "Bien");
 	        assertEquals(engine.getBufferContents(), "venu cut");
 
@@ -71,6 +83,11 @@ public class CommandTest {
 
 	    @Test
 	    void deleteCommand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
+	    	
+	    	start.execute();
+
 	        String mot = "Bienvenu delete";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
@@ -79,11 +96,17 @@ public class CommandTest {
 	        
 	        Command delete = new DeleteCommand(engine,recorder);
 	        delete.execute();
+	        stop.execute();
 	        assertEquals(engine.getBufferContents(), "Bvenu delete");
 	    }
 
 	    @Test
 	    void pastCommand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
+	    	
+	    	start.execute();
+
 	        String mot = "Bienvenu paste";
 	        engine.insert(mot);
 	        Selection selection = engine.getSelection();
@@ -93,13 +116,18 @@ public class CommandTest {
 	        engine.copySelectedText();
 	        engine.pasteClipboard();
 	        assertEquals(mot, engine.getBufferContents());
-	        Command paste = new PastCommand(engine,recorder);
-	        paste.execute();
+	        stop.execute();
+//	        Command paste = new PastCommand(engine,recorder);
+//	        paste.execute();
 	    }
 
 	    @Test
 	    void selectionCommand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
 	    	
+	    	start.execute();
+
 	        String content = "Salut tout le monde";
 	        invoker.setElement(content);
 	        invoker.setIndexB(0);
@@ -113,68 +141,63 @@ public class CommandTest {
 	        Command copy = new CopyCommand(engine,recorder);
 	        copy.execute();
 
+	        stop.execute();
 	        assertEquals("Salut",engine.getClipboardContents());
 	    }
 
 	    @Test
 	    void insertCommmand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
+	    	
+	    	start.execute();
+
 	        String mot = "Bienvenu Insert";
 	        invoker.setElement(mot);
 	        Command insert = new InsertCommand(engine, recorder , invoker);
 	        insert.execute();
+	        stop.execute();
 	        assertEquals(engine.getBufferContents(), mot);
 
 	    }
 	    
 	    @Test
 	    void replayCommand() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
 	    	String mot = "Bienvenu Replay";
-	    	engine.insert(mot);
-	    	//premiere commande
-	    	invoker.setIndexB(0);
-	    	 invoker.setIndexF(5);
-		     
-		     Command selection = new SelectionCommand(engine, recorder , invoker);
-		     //save dans son execution
-		     selection.execute();
-		     System.out.println(engine.getBufferContents());
-		     //deuxieme commande 
+	    	start.execute();
+	    	
+	    	System.out.println(engine.getBufferContents());
 	    	invoker.setElement(mot);
 		    Command insert = new InsertCommand(engine, recorder , invoker);
-		    //save dans son execution
 		    insert.execute();
-		    //replay la derniere
-		    recorder.replay();
-		    System.out.println(engine.getBufferContents());
-		    assertEquals( mot+ mot+"enu Replay", engine.getBufferContents());
+		    //System.out.println(engine.getBufferContents());
+	    	
+	    	invoker.setIndexB(0);
+	    	invoker.setIndexF(5);
+		    Command selection = new SelectionCommand(engine, recorder , invoker);
+		    selection.execute();
+		   
+		    Command copy = new CopyCommand(engine, recorder);
+		    copy.execute();
+		   
+		    invoker.setIndexB(15);
+	    	invoker.setIndexF(15);
+	    	selection.execute();
+	    	
+	    	Command past = new PastCommand(engine, recorder);
+	    	past.execute();
+	    	stop.execute();
+	    	
+		    Command replay = new ReplayCommand(recorder);
+		    
+		    System.out.println(engine.getBufferContents() +"\n");
+		    replay.execute();
+		    System.out.println(engine.getBufferContents() +"\n");
+		    //assertEquals( mot+ mot+"enu Replay", engine.getBufferContents());
 
 	    }
 	    
-	    @Test
-	    void replayCommand1() {
-	    	String mot = "Bienvenu Replay";
-	    	
-		     System.out.println(engine.getBufferContents());
-		     //deuxieme commande 
-	    	invoker.setElement(mot);
-		    Command insert = new InsertCommand(engine, recorder , invoker);
-		    //save dans son execution
-		    insert.execute();
-		    
-		    engine.insert(mot);
-	    	//premiere commande
-		    invoker.setIndexB(0);
-	    	 invoker.setIndexF(5);
-		     
-		     Command selection = new SelectionCommand(engine, recorder , invoker);
-		     //save dans son execution
-		     selection.execute();
-		    //replay la derniere
-		    recorder.replay();
-		    
-		    assertEquals(0, engine.getSelection().getBeginIndex());
-		    //assertEquals(5, engine.getSelection().getEndIndex());
-
-	    }
-
+	 
 }

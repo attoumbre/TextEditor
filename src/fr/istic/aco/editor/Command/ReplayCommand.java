@@ -18,7 +18,7 @@ public class ReplayCommand implements Recordable{
 	@Override
 	public void execute() {
 		this.recoder.replay();
-		this.recoder.save(this);
+		//this.recoder.save(this);
 	}
 
 	@Override
