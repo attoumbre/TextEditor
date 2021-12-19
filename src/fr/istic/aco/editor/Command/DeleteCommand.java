@@ -6,7 +6,7 @@ import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class DeleteCommand implements Command{
+public class DeleteCommand implements Command, Originator{
 	
 	
 	private Engine engine;
@@ -32,12 +32,7 @@ public class DeleteCommand implements Command{
 		return Optional.empty();
 	}
 
-	@Override
-	public Engine getEngine() {
-		
-		return engine;
-	}
-
+	
 	@Override
 	public void setMemento(Memento m) {
 		

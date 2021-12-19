@@ -8,7 +8,7 @@ import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class InsertCommand implements Command{
+public class InsertCommand implements Command, Originator{
 	
 	private Engine engine;
 	private Invoker invoker;
@@ -48,11 +48,7 @@ public class InsertCommand implements Command{
 		return Optional.of(new InsertMemento(element));
 	}
 
-	@Override
-	public Engine getEngine() {
-		
-		return this.engine;
-	}
+
 
 	@Override
 	public void setMemento(Memento m) {

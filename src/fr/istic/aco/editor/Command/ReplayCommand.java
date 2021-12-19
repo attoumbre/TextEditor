@@ -3,10 +3,9 @@ package fr.istic.aco.editor.Command;
 import java.util.Optional;
 
 import fr.istic.aco.editor.Memento.Memento;
-import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class ReplayCommand implements Command {
+public class ReplayCommand implements Command , Originator{
 
 	private Recorder recoder;
 	
@@ -27,11 +26,6 @@ public class ReplayCommand implements Command {
 		return Optional.empty();
 	}
 
-	@Override
-	public Engine getEngine() {
-		
-		return null;
-	}
 
 	@Override
 	public void setMemento(Memento m) {

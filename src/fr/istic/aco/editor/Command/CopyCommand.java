@@ -6,7 +6,7 @@ import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class CopyCommand implements Command{
+public class CopyCommand implements Command, Originator{
 	
 	private Engine engine;
 	private Recorder recorder;
@@ -33,11 +33,6 @@ public class CopyCommand implements Command{
 		return Optional.empty();
 	}
 	
-	@Override
-	public Engine getEngine() {
-		
-		return engine;
-	}
 
 	@Override
 	public void setMemento(Memento m) {

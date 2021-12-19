@@ -9,7 +9,7 @@ import fr.istic.aco.editor.Receiver.Engine;
 import fr.istic.aco.editor.Receiver.Selection;
 import fr.istic.aco.editor.Recorder.Recorder;
 
-public class SelectionCommand implements Command{
+public class SelectionCommand implements Command, Originator{
 
 	private Engine engine;
 	private Invoker invoker;
@@ -53,12 +53,6 @@ public class SelectionCommand implements Command{
 	@Override
 	public Optional<Memento> getMemento() {
 		return Optional.of(new SelectionMemento(IndexD,IndexF));
-	}
-
-	@Override
-	public Engine getEngine() {
-		
-		return engine;
 	}
 
 	@Override
