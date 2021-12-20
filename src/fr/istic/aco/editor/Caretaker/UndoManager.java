@@ -8,19 +8,19 @@ public interface UndoManager {
 	 * enregistre la commande jouée
 	 * @param cmd
 	 */
-	void store(Recordable cmd);
+	public void store(Recordable cmd);
 	
 	/**
 	 * jouer les commande sauf la derniere
 	 */
-	void undo();
+	public void undo();
 	
 	/**
 	 * jouer les commande 
 	 */
-	void redo();
+	public void redo();
 	
-	void start();
-	void stop();
-	Boolean started();
+	public void start();
+	public void stop();
+	public Boolean started();
 }

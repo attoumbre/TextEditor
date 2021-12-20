@@ -53,10 +53,7 @@ public class UndoManagerImpl implements UndoManager{
 	@Override
 	public void redo() {
 		
-//		pastStates.add(futurStates.get(futurStates.size()-1));
-//		//futurStates.remove(futurStates.size()-1);
-//	
-		engine.reset();
+	engine.reset();
 		futurStates.forEach(p -> {
 			if(p.getM().isPresent()) {
 				p.getR().setMemento(p.getM().get());
