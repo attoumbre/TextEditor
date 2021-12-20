@@ -14,31 +14,35 @@ public class UndoManagerImpl implements UndoManager{
 	private List<Pair<Recordable, Optional<Memento>>> futurStates;
 	
 	private Boolean started ;
+	private Engine engine;
 	
-	public UndoManagerImpl() {
+	public UndoManagerImpl(Engine engine) {
 		pastStates = new ArrayList<>();
 		futurStates = new ArrayList<>();
 		
-		
+		this.engine = engine;
 	}
 	
 	@Override
 	public void store(Recordable cmd) {
 		if(started) {
 			pastStates.add(new Pair<>(cmd, cmd.getMemento()));
+			futurStates.add(new Pair<>(cmd, cmd.getMemento()));
 		}
 		
 	}
 
+	
 	@Override
 	public void undo() {
-		//engine.reset();
-		futurStates.add(pastStates.get(pastStates.size()-1));
 		
 		pastStates.remove(pastStates.size()-1);
+		engine.reset();
+ 
+		pastStates.forEach(p-> {
 		
-		pastStates.forEach(p -> {
 			if(p.getM().isPresent()) {
+			
 				p.getR().setMemento(p.getM().get());
 			}
 			p.getR().execute(); 
@@ -49,10 +53,10 @@ public class UndoManagerImpl implements UndoManager{
 	@Override
 	public void redo() {
 		
-		//engine.reset();
-		pastStates.add(futurStates.get(futurStates.size()-1));
-		futurStates.remove(futurStates.size()-1);
-		
+//		pastStates.add(futurStates.get(futurStates.size()-1));
+//		//futurStates.remove(futurStates.size()-1);
+//	
+		engine.reset();
 		futurStates.forEach(p -> {
 			if(p.getM().isPresent()) {
 				p.getR().setMemento(p.getM().get());

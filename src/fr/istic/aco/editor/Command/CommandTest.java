@@ -31,7 +31,7 @@ public class CommandTest {
 	        engine = new EngineImpl();
 	        recorder = new RecorderImpl();
 	        invoker = new InvokerImpl();
-	        undoManager = new UndoManagerImpl();
+	        undoManager = new UndoManagerImpl(engine);
 	        //memento = new SelectionMemento();
 	       // memento2 = new InsertMemento();
 	    }
@@ -139,7 +139,7 @@ public class CommandTest {
 	        Command insert = new InsertCommand(engine, recorder , invoker, undoManager);
 	        insert.execute();
 	        Command selection = new SelectionCommand(engine, recorder,invoker, undoManager);
-	        System.out.println(engine.getBufferContents());
+	        
 	        selection.execute();
 	        
 	        Command copy = new CopyCommand(engine,recorder, undoManager);
@@ -234,10 +234,53 @@ public class CommandTest {
 
 	    	Command undo = new Undo(undoManager);
 	    	undo.execute();
+	    	
+	    	assertEquals( "Bienvenu Replay", engine.getBufferContents());
+	    
+	    	
+	    	
+	    	
+	    }
+	    
+	    
+	    @Test
+	    void redo() {
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
+	    	String mot = "Bienvenu Replay";
+	    	start.execute();
+	    	
+	    	
+	    	invoker.setElement(mot);
+		    Command insert = new InsertCommand(engine, recorder , invoker, undoManager);
+		    insert.execute();
+		   
+	    	
+	    	invoker.setIndexB(0);
+	    	invoker.setIndexF(5);
+		    Command selection = new SelectionCommand(engine, recorder , invoker, undoManager);
+		    selection.execute();
+		   
+		    Command copy = new CopyCommand(engine, recorder, undoManager);
+		    copy.execute();
+		   
+		    invoker.setIndexB(15);
+	    	invoker.setIndexF(15);
+	    	selection.execute();
+	    	
+	    	Command past = new PastCommand(engine, recorder, undoManager);
+	    	past.execute();
+	    	stop.execute();
+
+	    	Command undo = new Undo(undoManager);
+	    	undo.execute();
 	    	Command redo = new Redo(undoManager);
 	    	redo.execute();
-	    	System.out.println(engine.getBufferContents());
-	    	 assertEquals( "Bienvenu Replay", engine.getBufferContents());
+	    	
+	    	assertEquals( "Bienvenu ReplayBienv", engine.getBufferContents());
+	    
+	    	
+	    	
 	    	
 	    }
 	    

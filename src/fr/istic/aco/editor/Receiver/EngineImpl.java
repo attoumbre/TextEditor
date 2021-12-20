@@ -128,10 +128,13 @@ public class EngineImpl implements Engine {
     	this.clipBoard=clipBord;
     }
     
+    public void setBuffer(String text) {
+    	stringBuffer = new StringBuffer(text);
+    }
     
 	public void reset() {
-		int end = getBufferContents().length();
-		stringBuffer.delete(0, end);
+		
+		setBuffer("");
 		selection.setBeginIndex(0);
 		selection.setEndIndex(0);
 	}
