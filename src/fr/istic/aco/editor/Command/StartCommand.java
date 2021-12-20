@@ -15,9 +15,9 @@ public class StartCommand implements Command {
 	
 	@Override
 	public void execute() {
-		recorder.start();
-		undoManager.start();
 		
+		undoManager.start();
+		recorder.start();
 	}
 
 
