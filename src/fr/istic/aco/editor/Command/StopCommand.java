@@ -17,7 +17,7 @@ public class StopCommand implements Command{
 	public void execute() {
 
 		recorder.stop();
-		undoManager.start();
+		undoManager.stop();
 	}
 
 
