@@ -131,7 +131,7 @@ public class EngineImpl implements Engine {
     public void setBuffer(String text) {
     	stringBuffer = new StringBuffer(text);
     }
-    
+    @Override
 	public void reset() {
 		
 		setBuffer("");

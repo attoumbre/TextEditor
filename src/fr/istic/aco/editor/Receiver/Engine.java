@@ -58,5 +58,8 @@ public interface Engine {
      */
     void delete();
     
+   /**
+    * reset le buffer
+    */
    void reset();
 }
