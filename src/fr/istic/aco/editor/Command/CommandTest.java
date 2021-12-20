@@ -41,14 +41,17 @@ public class CommandTest {
 	     */
 	    @Test
 	    void copyCommand() {
+	    	
 	        String mot = "Bienvenu copy";
 	        engine.insert(mot);
+	        
 	        Selection selection = engine.getSelection();
 	        selection.setBeginIndex(1);
 	        selection.setEndIndex(3);
 	        
 	        Command copy = new CopyCommand(engine,recorder);
 	        copy.execute();
+	        
 	        assertEquals(engine.getClipboardContents(), "ie");
 	        assertEquals(engine.getBufferContents(), mot);
 
@@ -58,12 +61,14 @@ public class CommandTest {
 	    void cutCommand() {
 	        String mot = "Bienvenu cut";
 	        engine.insert(mot);
+	        
 	        Selection selection = engine.getSelection();
 	        selection.setBeginIndex(0);
 	        selection.setEndIndex(4);
 	        
 	        Command cut = new CutCommand(engine,recorder);
 	        cut.execute();
+	        
 	        assertEquals(engine.getClipboardContents(), "Bien");
 	        assertEquals(engine.getBufferContents(), "venu cut");
 
@@ -71,14 +76,17 @@ public class CommandTest {
 
 	    @Test
 	    void deleteCommand() {
+	    	
 	        String mot = "Bienvenu delete";
 	        engine.insert(mot);
+	        
 	        Selection selection = engine.getSelection();
 	        selection.setBeginIndex(1);
 	        selection.setEndIndex(4);
 	        
 	        Command delete = new DeleteCommand(engine,recorder);
 	        delete.execute();
+	        
 	        assertEquals(engine.getBufferContents(), "Bvenu delete");
 	    }
 
@@ -86,15 +94,18 @@ public class CommandTest {
 	    void pastCommand() {
 	        String mot = "Bienvenu paste";
 	        engine.insert(mot);
+	        
 	        Selection selection = engine.getSelection();
 	        selection.setBeginIndex(8);
 	        selection.setEndIndex(9);
 	        
-	        engine.copySelectedText();
-	        engine.pasteClipboard();
-	        assertEquals(mot, engine.getBufferContents());
+	        Command copy = new CopyCommand(engine,recorder);
+	        copy.execute();
+	        
 	        Command paste = new PastCommand(engine,recorder);
 	        paste.execute();
+	        assertEquals(mot, engine.getBufferContents());
+	       
 	    }
 
 	    @Test
@@ -102,12 +113,14 @@ public class CommandTest {
 	    	
 	        String content = "Salut tout le monde";
 	        invoker.setElement(content);
+	        
 	        invoker.setIndexB(0);
 	        invoker.setIndexF(5);
+	        
 	        Command insert = new InsertCommand(engine, recorder , invoker);
 	        insert.execute();
+	        
 	        Command selection = new SelectionCommand(engine, recorder,invoker);
-	        System.out.println(engine.getBufferContents());
 	        selection.execute();
 	        
 	        Command copy = new CopyCommand(engine,recorder);
@@ -120,8 +133,10 @@ public class CommandTest {
 	    void insertCommmand() {
 	        String mot = "Bienvenu Insert";
 	        invoker.setElement(mot);
+	        
 	        Command insert = new InsertCommand(engine, recorder , invoker);
 	        insert.execute();
+	        
 	        assertEquals(engine.getBufferContents(), mot);
 
 	    }
@@ -130,14 +145,14 @@ public class CommandTest {
 	    void replayCommand() {
 	    	Command start = new StartCommand( recorder);
 	    	Command stop = new StopCommand( recorder);
+	    	
 	    	String mot = "Bienvenu Replay";
 	    	start.execute();
 	    	
-	    	System.out.println(engine.getBufferContents());
 	    	invoker.setElement(mot);
 		    Command insert = new InsertCommand(engine, recorder , invoker);
 		    insert.execute();
-		    //System.out.println(engine.getBufferContents());
+		    
 	    	
 	    	invoker.setIndexB(0);
 	    	invoker.setIndexF(5);
@@ -156,8 +171,6 @@ public class CommandTest {
 	    	stop.execute();
 	    	
 		    Command replay = new ReplayCommand(recorder);
-		    
-		    
 		    replay.execute();
 		    
 		    assertEquals( "Bienvenu ReplayBienvBienvBienvenu Replay", engine.getBufferContents());
@@ -165,6 +178,28 @@ public class CommandTest {
 
 	    }
 	    
+	   @Test
+	   void replayCommand1() {
+		    Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
+	    	String mot = "Bienvenu Replay ";
+	    	start.execute();
+	    	
+	    	invoker.setElement(mot);
+		    Command insert = new InsertCommand(engine, recorder , invoker);
+		    insert.execute();
+		    
+		    String mot1 = "inserons encore ";
+		    invoker.setElement(mot1);
+		    insert.execute();
+		    
+		    stop.execute();
+	    	Command replay = new ReplayCommand(recorder);
+	    	replay.execute();
+			    
+			assertEquals( "Bienvenu Replay inserons encore Bienvenu Replay inserons encore ", engine.getBufferContents());
+
+	   }
 	   
 
 }
