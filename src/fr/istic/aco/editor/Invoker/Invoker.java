@@ -1,5 +1,7 @@
 package fr.istic.aco.editor.Invoker;
 
+import java.util.Map;
+
 import fr.istic.aco.editor.Command.Command;
 
 public interface Invoker {

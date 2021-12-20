@@ -69,6 +69,8 @@ public class InvokerTest {
     	assertThrows(IllegalArgumentException.class, ()->{invoker.addCommand(copy, null);});
     	assertThrows(IllegalArgumentException.class, ()->{invoker.addCommand(null, null);});
     	assertThrows(IllegalArgumentException.class, ()->{invoker.addCommand(null, null);});
+    	
+   
     }	
     
     
