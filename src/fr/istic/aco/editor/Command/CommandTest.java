@@ -203,5 +203,39 @@ public class CommandTest {
 
 	    }
 	    
+	    @Test
+	    void undo() {
+	    	Command start = new StartCommand( recorder);
+	    	Command stop = new StopCommand( recorder);
+	    	String mot = "Bienvenu Replay";
+	    	start.execute();
+	    	
+	    	System.out.println(engine.getBufferContents());
+	    	invoker.setElement(mot);
+		    Command insert = new InsertCommand(engine, recorder , invoker, undoManager);
+		    insert.execute();
+		    //System.out.println(engine.getBufferContents());
+	    	
+	    	invoker.setIndexB(0);
+	    	invoker.setIndexF(5);
+		    Command selection = new SelectionCommand(engine, recorder , invoker, undoManager);
+		    selection.execute();
+		   
+		    Command copy = new CopyCommand(engine, recorder, undoManager);
+		    copy.execute();
+		   
+		    invoker.setIndexB(15);
+	    	invoker.setIndexF(15);
+	    	selection.execute();
+	    	
+	    	Command past = new PastCommand(engine, recorder, undoManager);
+	    	past.execute();
+	    	stop.execute();
+	    	
+	    	command und
+	    	 assertEquals( "Bienvenu ReplayBienv", engine.getBufferContents());
+	    	
+	    }
+	    
 	 
 }

@@ -1,5 +1,6 @@
 package fr.istic.aco.editor.Caretaker;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,13 @@ public class UndoManagerImpl implements UndoManager{
 
 	private List<Pair<Recordable, Optional<Memento>>> pastStates;
 	private List<Pair<Recordable, Optional<Memento>>> futurStates;
-	Engine engine = new EngineImpl();
+	Engine engine;
+	
+	public UndoManagerImpl() {
+		pastStates = new ArrayList<>();
+		futurStates = new ArrayList<>();
+		engine = new EngineImpl();
+	}
 	
 	@Override
 	public void store(Recordable cmd) {
