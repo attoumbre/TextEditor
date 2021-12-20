@@ -5,7 +5,7 @@ import fr.istic.aco.editor.Recorder.Recorder;
 public class StopCommand implements Command{
 
 	private Recorder recorder;
-	StopCommand(Recorder recorder){
+	public StopCommand(Recorder recorder){
 		this.recorder= recorder;
 	}
 	
