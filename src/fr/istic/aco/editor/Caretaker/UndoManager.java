@@ -7,4 +7,8 @@ public interface UndoManager {
 	void store(Recordable cmd);
 	void undo();
 	void redo();
+	
+	void start();
+	void stop();
+	Boolean started();
 }

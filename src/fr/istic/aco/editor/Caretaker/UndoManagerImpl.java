@@ -6,36 +6,42 @@ import java.util.Optional;
 
 import fr.istic.aco.editor.Memento.Memento;
 import fr.istic.aco.editor.Receiver.Engine;
-import fr.istic.aco.editor.Receiver.EngineImpl;
 import fr.istic.aco.editor.Recorder.Recordable;
 
 public class UndoManagerImpl implements UndoManager{
 
 	private List<Pair<Recordable, Optional<Memento>>> pastStates;
 	private List<Pair<Recordable, Optional<Memento>>> futurStates;
-	Engine engine;
+	
+	private Boolean started ;
 	
 	public UndoManagerImpl() {
 		pastStates = new ArrayList<>();
 		futurStates = new ArrayList<>();
-		engine = new EngineImpl();
+		
+		
 	}
 	
 	@Override
 	public void store(Recordable cmd) {
-		pastStates.add(new Pair<>(cmd, cmd.getMemento()));
+		if(started) {
+			pastStates.add(new Pair<>(cmd, cmd.getMemento()));
+		}
+		
 	}
 
 	@Override
 	public void undo() {
-		engine.reset();
+		//engine.reset();
 		futurStates.add(pastStates.get(pastStates.size()-1));
+		
 		pastStates.remove(pastStates.size()-1);
-		pastStates.forEach(pair -> {
-			if(pair.getM().isPresent()) {
-				pair.getR().setMemento(pair.getM().get());
+		
+		pastStates.forEach(p -> {
+			if(p.getM().isPresent()) {
+				p.getR().setMemento(p.getM().get());
 			}
-			pair.getR().execute();
+			p.getR().execute(); 
 		});
 		
 	}
@@ -43,17 +49,38 @@ public class UndoManagerImpl implements UndoManager{
 	@Override
 	public void redo() {
 		
-		engine.reset();
+		//engine.reset();
 		pastStates.add(futurStates.get(futurStates.size()-1));
 		futurStates.remove(futurStates.size()-1);
-		futurStates.forEach(pair -> {
-			if(pair.getM().isPresent()) {
-				pair.getR().setMemento(pair.getM().get());
+		
+		futurStates.forEach(p -> {
+			if(p.getM().isPresent()) {
+				p.getR().setMemento(p.getM().get());
 			}
-			pair.getR().execute();
+			p.getR().execute();
 		});
 	}
 
-	
+	@Override
+	public void start() {
+		started = true;
+		
+	}
+
+
+
+	@Override
+	public void stop() {
+		started = false;
+		
+	}
+
+
+
+	@Override
+	public Boolean started() {
+		
+		return started;
+	}
 
 }

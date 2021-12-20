@@ -45,8 +45,8 @@ public class CommandTest {
 	     */
 	    @Test
 	    void copyCommand() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
 	    	
 	    	start.execute();
 	        String mot = "Bienvenu copy";
@@ -65,8 +65,8 @@ public class CommandTest {
 
 	    @Test
 	    void cutCommand() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
 	    	
 	    	start.execute();
 
@@ -87,8 +87,8 @@ public class CommandTest {
 
 	    @Test
 	    void deleteCommand() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
 	    	
 	    	start.execute();
 
@@ -106,8 +106,8 @@ public class CommandTest {
 
 	    @Test
 	    void pastCommand() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
 	    	
 	    	start.execute();
 
@@ -127,8 +127,8 @@ public class CommandTest {
 
 	    @Test
 	    void selectionCommand() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder,undoManager);
 	    	
 	    	start.execute();
 
@@ -151,8 +151,8 @@ public class CommandTest {
 
 	    @Test
 	    void insertCommmand() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
 	    	
 	    	start.execute();
 
@@ -167,8 +167,8 @@ public class CommandTest {
 	    
 	    @Test
 	    void replayCommand() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
 	    	String mot = "Bienvenu Replay";
 	    	start.execute();
 	    	
@@ -205,16 +205,16 @@ public class CommandTest {
 	    
 	    @Test
 	    void undo() {
-	    	Command start = new StartCommand( recorder);
-	    	Command stop = new StopCommand( recorder);
+	    	Command start = new StartCommand( recorder, undoManager);
+	    	Command stop = new StopCommand( recorder, undoManager);
 	    	String mot = "Bienvenu Replay";
 	    	start.execute();
 	    	
-	    	System.out.println(engine.getBufferContents());
+	    	
 	    	invoker.setElement(mot);
 		    Command insert = new InsertCommand(engine, recorder , invoker, undoManager);
 		    insert.execute();
-		    //System.out.println(engine.getBufferContents());
+		   
 	    	
 	    	invoker.setIndexB(0);
 	    	invoker.setIndexF(5);
@@ -231,9 +231,13 @@ public class CommandTest {
 	    	Command past = new PastCommand(engine, recorder, undoManager);
 	    	past.execute();
 	    	stop.execute();
-	    	
-	    	command und
-	    	 assertEquals( "Bienvenu ReplayBienv", engine.getBufferContents());
+
+	    	Command undo = new Undo(undoManager);
+	    	undo.execute();
+	    	Command redo = new Redo(undoManager);
+	    	redo.execute();
+	    	System.out.println(engine.getBufferContents());
+	    	 assertEquals( "Bienvenu Replay", engine.getBufferContents());
 	    	
 	    }
 	    

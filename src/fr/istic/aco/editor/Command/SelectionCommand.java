@@ -31,7 +31,7 @@ public class SelectionCommand implements Recordable{
 	
 	@Override
 	public void execute() {
-		undoManager.store(this);
+		
 		if(!isRestore) {
 			IndexD = invoker.getIndexB();	
 			IndexF = invoker.getIndexF();
@@ -47,7 +47,7 @@ public class SelectionCommand implements Recordable{
 		}
 		
 		
-		
+		undoManager.store(this);
 		recorder.save(this);
 		isRestore = false;
 

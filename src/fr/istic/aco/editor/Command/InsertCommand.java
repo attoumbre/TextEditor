@@ -33,12 +33,13 @@ public class InsertCommand implements Recordable{
 	@Override
 	public void execute() {
 		
-		undoManager.store(this);
+		
 		if(!isRestore) {
 			element = invoker.getElement();	
 		}
 		
 		this.engine.insert(element);
+		undoManager.store(this);
 		//recorder save la commande cela nous evite de faire une concrete commande save
 		recorder.save(this);
 		isRestore = false;
