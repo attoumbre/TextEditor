@@ -8,7 +8,7 @@ public class StopCommand implements Command{
 	private Recorder recorder;
 	private UndoManager undoManager;
 	
-	StopCommand(Recorder recorder, UndoManager undoManager){
+	public StopCommand(Recorder recorder, UndoManager undoManager){
 		this.recorder= recorder;
 		this.undoManager = undoManager;
 	}

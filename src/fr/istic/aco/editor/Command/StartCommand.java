@@ -7,7 +7,7 @@ public class StartCommand implements Command {
 
 	private Recorder recorder;
 	private UndoManager undoManager;
-	StartCommand(Recorder recorder, UndoManager undoManager){
+	public StartCommand(Recorder recorder, UndoManager undoManager){
 		this.recorder = recorder;
 		this.undoManager = undoManager;
 	}
