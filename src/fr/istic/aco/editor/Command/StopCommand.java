@@ -7,16 +7,17 @@ public class StopCommand implements Command{
 
 	private Recorder recorder;
 	private UndoManager undoManager;
-	StopCommand(Recorder recorder, UndoManager undoManager){
+	
+	StopCommand(Recorder recorder){
 		this.recorder= recorder;
 		this.undoManager = undoManager;
 	}
 	
 	@Override
 	public void execute() {
+
 		recorder.stop();
-		undoManager.stop();
-		
+		undoManager.start();
 	}
 
 
